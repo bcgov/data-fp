@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+@import "bootstrap_overrides";
+@import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$navbar-height: 143px;
+$navbar-height-padding: $grid-gutter-width * 2;
+
+@import "page";
+@import "pages/home";
