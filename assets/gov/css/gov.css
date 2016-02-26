@@ -579,7 +579,7 @@
 	}
 	
 	.menu_suggestion_form .menu-searchbox.placeholder {
-   	    background-image: url("/StaticWebResources/static/gov3/images/tile_searchbox_placeholder.png");
+   	    background-image: url("/assets/gov/images/tile_searchbox_placeholder.png");
 	}			
 	
 	.menu_suggestion_form .ss-gac-m {
@@ -1007,7 +1007,7 @@
 	height: 99%;
 	width: 40px;
 	z-index: 3;
-    background: #fff url("/StaticWebResources/static/gov3/images/inlinesearch-button-off.png") no-repeat left center;	
+    background: #fff url("/assets/gov/images/inlinesearch-button-off.png") no-repeat left center;	
 }
 
 .homepage-tile .tile-search-flyout {
