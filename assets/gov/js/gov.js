@@ -311,14 +311,14 @@ $(document).ready(function(event) {
     	if($(this).hasClass("sortedByOrderWeight")) {
     		sortTiles("div.homepage-theme-tiles", "alphabetical");  		  		
     		$(this).removeClass("sortedByOrderWeight").addClass("sortedByAlphabetical");
-    		$(this).attr("src", "/StaticWebResources/static/gov3/images/az-sort-button-on.png");
+    		$(this).attr("src", "/assets/gov/images/az-sort-button-on.png");
     		$(this).attr("alt", "Sort by popularity");
     		$(this).attr("title", "Sort by popularity");      		    	    		
     	}
     	else if($(this).hasClass("sortedByAlphabetical")) {
     		sortTiles("div.homepage-theme-tiles", "orderWeight");     		
     		$(this).removeClass("sortedByAlphabetical").addClass("sortedByOrderWeight");
-    		$(this).attr("src", "/StaticWebResources/static/gov3/images/az-sort-button-off.png");    
+    		$(this).attr("src", "/assets/gov/images/az-sort-button-off.png");    
     		$(this).attr("alt", "Sort alphabetically");
     		$(this).attr("title", "Sort alphabetically");     		
     	}
