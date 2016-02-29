@@ -10,7 +10,7 @@ RUN \
     ruby \
     ruby-dev \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \  
-  && curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash - \
+  && curl -sL https://deb.nodesource.com/setup_5.x | bash - \
   && apt-get install -y nodejs \
   && apt-get install -y build-essential \
   && gem install --no-ri --no-rdoc \
