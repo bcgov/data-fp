@@ -3,12 +3,13 @@ MAINTAINER Fernando de Alcântara Correia <fernando@fernandocorreia.info>
 
 RUN \
   DEBIAN_FRONTEND=noninteractive apt-get update \
-  && git config --global url.https://github.com/.insteadOf git://github.com/ \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
     curl \
+    git \
     ruby \
     ruby-dev \
+  && git config --global url.https://github.com/.insteadOf git://github.com/ \  
   && curl -sL https://deb.nodesource.com/setup | bash - \
   && apt-get install -y nodejs \
   && gem install --no-ri --no-rdoc \
