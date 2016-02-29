@@ -19,6 +19,13 @@ RUN \
     ruby-dev \
   && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
   && DEBIAN_FRONTEND=noninteractive apt-get clean \
+  && git clone https://github.com/BCDevOps/data-fp.git /src \
+  && npm install -g bower \
+  && npm install -g grunt-cli \
+  && npm install /src/data-fp \
+  && bower install /src/data-fp \
+  && grunt build /src/data-fp \
+  && jekyll serve /src/data-fp --detach \
   && rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 4000
