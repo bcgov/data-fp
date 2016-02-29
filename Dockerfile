@@ -22,6 +22,7 @@ RUN \
   && git clone https://github.com/BCDevOps/data-fp.git /src \
   && npm install -g bower \
   && npm install -g grunt-cli \
+  && cd /src/data-fp \
   && npm install /src/data-fp \
   && bower install /src/data-fp \
   && grunt build /src/data-fp \
