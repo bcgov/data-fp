@@ -13,7 +13,9 @@ module.exports = function (grunt) {
                 command: 'jekyll build'
             },
             jekyllServe: {
-                command: 'jekyll serve'
+                command: function(host, port) {
+                    return 'jekyll serve --host=' + host + ' --port=' + port;
+                }
             }
         },
 
@@ -40,7 +42,7 @@ module.exports = function (grunt) {
             serve: [
                 'sass',
                 'watch',
-                'shell:jekyllServe'
+                'shell:jekyllServe:127.0.0.1:4000'
             ],
             options: {
                 logConcurrentOutput: true
@@ -85,11 +87,26 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('serve', [
-        'copy', 'concurrent:serve'
-    ]);
+    grunt.registerTask('dev', 'concurrent:serve');
+
+    grunt.registerTask('serve', function() {
+        var host = grunt.option('host');
+        var port = grunt.option('port');
+
+        if(!host) {
+            host = '0.0.0.0';
+        }
+
+        if(!port) {
+            port = '4000';
+        }
+        
+        grunt.task.run('build', 'shell:jekyllServe:' + host + ':' + port);
+    });
 
     grunt.registerTask('build', [
+        'sass',
+        'copy',
         'shell:jekyllBuild'
     ]);
 
