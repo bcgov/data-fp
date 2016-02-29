@@ -29,4 +29,4 @@ RUN \
 EXPOSE 4000
 VOLUME /src
 WORKDIR /src
-ENTRYPOINT ["jekyll"]
+ENTRYPOINT ["jekyll", "serve" "--detach"]
