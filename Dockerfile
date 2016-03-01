@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:onbuild
 RUN \
   DEBIAN_FRONTEND=noninteractive apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -10,11 +10,8 @@ RUN \
   && gem install --no-ri --no-rdoc \
     jekyll \
   && mkdir /src \
-  && DEBIAN_FRONTEND=noninteractive apt-get purge -y \
     build-essential \
     ruby-dev \
-  && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get clean \
   && cd /src \
   && git clone https://github.com/BCDevOps/data-fp.git \
   && npm install -g bower \
@@ -24,6 +21,9 @@ RUN \
   && bower install --allow-root \
   && grunt build \
   && jekyll serve /src/data-fp --detach \
+  && DEBIAN_FRONTEND=noninteractive apt-get purge -y \
+  && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
+  && DEBIAN_FRONTEND=noninteractive apt-get clean \  
   && rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 4000
