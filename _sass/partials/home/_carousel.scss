@@ -1,0 +1,60 @@
+#databc-homepage-carousel {
+	margin-bottom: 30px;
+}
+
+#databc-homepage-carousel .slide-title {
+    width: 100%;
+    background-color: rgba(0, 51, 102, 0.8);
+    color: #FFFFFF;
+    padding: 15px 30px 0 15px;
+    max-height: 290px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+#databc-homepage-carousel .slide-title h2 {
+	font-size: 36px;
+    font-weight: 600;
+    padding: 0;
+    margin: 0 0 9px 0;
+    background: none;
+    height: auto;
+    color: #FFFFFF;
+}
+
+#databc-homepage-carousel .slide-title h2 a {
+	color: #fff;
+}
+
+#databc-homepage-carousel .slide-title h2 a:hover,
+#databc-homepage-carousel .slide-title h2 a:focus,
+#databc-homepage-carousel .slide-title h2 a:active {
+	text-decoration: none;
+}
+
+#databc-homepage-carousel .carousel-inner iframe {
+    margin-bottom: -7px;
+}
+
+#databc-homepage-carousel .carousel-control {
+	background-image: none;
+	font-size: 100px;
+	width: 10%;
+        opacity: 1;
+    text-shadow: 0px 2px 1px #003366;
+    color: #5475a7;
+}
+
+#databc-homepage-carousel .carousel-control.left {
+	left: -115px;
+}
+
+#databc-homepage-carousel .carousel-control.right {
+	right: -115px;
+}
+
+#databc-homepage-carousel .carousel-indicators {
+    position: static;
+    margin-left: 0;
+    width: 100%;
+}

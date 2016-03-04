@@ -1,0 +1,31 @@
+/**
+ * Media query breakpoint
+ * Usage:
+ * @include breakpoint(breakpointname) {
+		Styles here
+ * }
+ *
+ * e.g. 
+ * @include breakpoint(sm) { ...
+ */
+@mixin breakpoint($point) {
+	@if $point == xs {
+		@media (max-width: $screen-xs-max) { @content ; }
+	}
+
+	@elseif $point == sm {
+		@media (max-width: $screen-sm-max) { @content ; }
+	}
+
+	@elseif $point == md {
+		@media (max-width: $screen-md-max) { @content ; }
+	}
+
+	@elseif $point == lg {
+		@media (min-width: $screen-lg) { @content ; }
+	}
+
+	@else {
+		@media (max-width: $point) { @content ; }
+	}
+} 

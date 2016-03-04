@@ -1,10 +1,22 @@
 @charset "utf-8";
 
+@import "modules/fonts";
+@import "modules/mixins";
+
 @import "bootstrap_overrides";
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 $navbar-height: 143px;
 $navbar-height-padding: $grid-gutter-width * 2;
 
-@import "page";
-@import "pages/home";
+@import "partials/gov/header";
+@import "partials/gov/content";
+@import "partials/gov/footer";
+
+@import "partials/home/carousel";
+@import "partials/home/home";
+
+@import "partials/page/header";
+@import "partials/page/page";
+
+@import "partials/visualization/visualization";

@@ -1,0 +1,180 @@
+.homepage-tile .tile-search {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+	height: 99%;
+	width: 40px;
+	z-index: 3;
+    background: #fff url("/assets/gov/images/inlinesearch-button-off.png") no-repeat left center;	
+}
+
+.homepage-tile .tile-search-flyout {
+	position: absolute;
+	left: 1000px;
+	width: 100%;
+	max-width: 770px;
+	top: 0;
+	height: 100%;
+}
+
+.homepage-tile .tile-search-flyout input {
+	height: 99%;
+	width: 100%;
+	padding: 5px 50px 5px 15px;
+	border: 1px solid #26639c;
+	font-size: 16px;
+    background: #fff;				
+}
+
+.table-responsive .featureBox {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.featureBoxes-3col, .tiles-container {
+	display: table;
+	width: 100%;
+}
+
+.tiles-row {
+	display: table-row;
+}
+
+.featureBoxes-3col {
+	margin-top: 15px;
+	margin-bottom: 30px;
+}
+
+.featureBoxes-3col>.featureBox, .tiles-row>.tile {
+	background-color: #fff;
+	display: table-cell;
+	float: none;
+	vertical-align: top;
+	padding: 20px 15px;
+	border-right: 1px solid #ddd;
+}
+
+.featureBoxes-3col>.featureBox h1 {
+	font-size: 32px;
+}
+
+
+
+#form-dataset-search {
+	position: relative;
+}
+
+#form-dataset-search input {
+	height: 50px;
+	border: 2px solid #26639c;
+	border-radius: 5px;
+	font-size: 1.5em;
+	padding-right: 50px;
+}
+
+#form-dataset-search .search-icon {
+	position: absolute;
+	right: 2px;
+	top: 1px;
+
+	background-color: #26639c;
+	background-image: url('/assets/gov/images/inlinesearch-button-on.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 48px;
+	width: 40px;
+}
+
+.blue-heading-bar {
+	background-color: #003366; /* for IE */
+	background-color: rgba(0, 51, 102, 0.80);
+	color: #fff;
+	font-size: 24px;
+	margin: 0;
+	padding: 8px 15px 7px 15px;
+}
+
+.popular-services-text {
+    background-color: #fff;
+    margin-bottom: 30px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #1a5a96;
+}
+
+.popular-services-text p {
+    margin: 0;
+}
+
+.feed h4 {
+	margin: 0;
+	line-height: inherit;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.arrow-link {
+    color: #1a5a96;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 10px;
+    text-transform: uppercase;
+    background: url("/assets/gov/images/bullet-arrow.png") no-repeat scroll 0 4px transparent;
+}
+
+.homePageRightColumn a {
+	text-decoration: underline;
+}
+
+.rightColumnBox {
+	background-color: #fff; /* for IE */
+	background-color: rgba(255, 255, 255, 0.80);
+	padding: 15px;
+	margin-bottom: 30px;
+	word-wrap: break-word;
+}
+
+.rightColumnBox p>img, .themePromoBox p>img {
+	display: inline;
+}
+
+.rightColumnBox img, .themePromoBox img {
+	display: block;
+	margin: 0 auto 10px auto;
+	width: inherit !important;
+	max-width: 100% !important;
+	height: auto !important;
+}
+
+.rightColumnBox .date {
+	font-size: 13px;
+}
+
+@include breakpoint(xs) {
+	.homepage-tile .tile-text {
+		padding-right: 40px;
+	}
+	.homepage-tile .tile-search {
+		height: 40px;
+		line-height: normal;
+		display: block;
+	}
+	.homepage-tile .tile-search img {
+		padding: 5px 0;
+	}	
+	.homepage-tile .tile-search-flyout .tile-searchbox {
+		height: 40px;
+	}	
+	
+	.homepage-tile table.ss-gac-m {
+		left: 0;
+		width: 100%;
+		top: 39px;
+	}
+
+	.featureBoxes-3col {
+		margin-top: 0;
+	}
+}
