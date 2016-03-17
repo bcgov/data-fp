@@ -893,14 +893,41 @@
 }
 
 @include breakpoint(xs) {
+	#header-main,
+	#header-main #header-main-row1 {
+		height: 68px;
+	}
+
 	#header.collapsed-header #header-main-row2 {
 		width: 100%;
 		right: 0;
+		top: 66px;
 	}
 
 	#header.collapsed-header #header-main-row1 .header-search {
 		width: 100%;
 		right: 0;
+	}
+
+	#header.collapsed-header .menu-button.mini-menu-trigger,
+	#header.collapsed-header .search-button.mini-menu-trigger {
+		top: 3px;
+	}
+
+	.background {
+		top: 68px;
+	}
+
+	.navigationRibbon {
+		.level2Navigation {
+			a {
+				display: inline-block;
+
+				& + a:after {
+					background: none;
+				}
+			}
+		}
 	}
 
 	#govNavMenu {
@@ -916,8 +943,16 @@
 		padding: 0 15px;
 	}
 
+	#header .navbar-brand {
+		padding: $navbar-padding-vertical $navbar-padding-horizontal;
+	}
+
 	#header .navbar-brand .logo {
 		font-size: 1.5em;
+
+		img {
+			width: 50px;
+		}
 	}
 	
     #govMainMenu {

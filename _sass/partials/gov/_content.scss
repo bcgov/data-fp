@@ -55,7 +55,7 @@
 	border-right: 1px solid #ddd;
 }
 
-.featureBoxes-3col>.featureBox h1 {
+.featureBoxes-3col>.featureBox h2 {
 	font-size: 32px;
 }
 
@@ -176,5 +176,10 @@
 
 	.featureBoxes-3col {
 		margin-top: 0;
+	}
+
+	.featureBoxes-3col>.featureBox, .tiles-row>.tile {
+		display: block;
+		border-right: 0;
 	}
 }
