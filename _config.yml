@@ -30,5 +30,6 @@ collections:
     permalink: /visualization/:path
 
 # Serving
+incremental: true
 detach: true
 host: 0.0.0.0
