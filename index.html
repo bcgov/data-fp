@@ -5,29 +5,29 @@ layout: default
 <div id="homeTemplate" class="template container">
   <div class="row">
     <div id="beforeCarousel" class="col-xs-12">
-      <form id="form-dataset-search">
+      <form action="https://catalogue.data.gov.bc.ca/dataset" method="get" id="form-dataset-search">
         <div class="form-group">
           <input id="field-search-query" type="text" class="search tt-input form-control" name="q" value="" autocomplete="off" placeholder="Search the BC Data Catalogue" spellcheck="false" dir="auto">
-          <div class="search-icon"></div>
+          <input type="submit" value="Search" class="search-icon" />
         </div>
       </form>
       <div class="table-responsive">  
         <div class="table featureBoxes-3col"> 
           <div class="featureBox col-sm-4">                  
             <div class="text">
-              <h2><a href="#" target="_self"><span class="dataset_count"></span></a></h2>
+              <h2><span class="dataset_count"></h2>
               <h4>datasets in the BC Data Catalogue</h4>
             </div>
           </div>      
           <div class="featureBox col-sm-4">                  
             <div class="text">
-              <h2><a href="#" target="_self"><span class="open_dataset_count"></span></a></h2>
+              <h2><span class="open_dataset_count"></h2>
               <h4>Number of datasets published under the Open Government License</h4>
             </div>
           </div>      
           <div class="featureBox col-sm-4">                  
             <div class="text">
-              <h2><a href="#" target="_self"><span class="recently_published_count"></span></a></h2>
+              <h2><span class="recently_published_count"></h2>
               <h4>Number of datasets published in the past 90 days</h4>
             </div>
           </div>      
@@ -48,7 +48,7 @@ layout: default
         <div class="item">
         {% endif %}
           <div class="slide-title">
-            <h2><span class="pull-right"><a href="{{ vis.url }}" target="_blank"><span class="glyphicon glyphicon-resize-full"></span></a></span>{{ vis.title }}</h2>
+            <h2>{{ vis.title }}</h2>
           </div>
           {{ vis.carousel_html }}
         </div>
@@ -110,10 +110,11 @@ layout: default
         <h2 class="blue-heading-bar">DataBC Blog</h2>
         <div class="rightColumnBox">
           <div class="feed blog">
+            <h4 class="placeholder">
+              <p><a href="#" class="url" target="_blank"><span class="title"></span></a></p>
+            </h4>
             <div class="feedEntry">
-              <h4 class="placeholder">
-                <p><a href="#" class="url" target="_blank"><span class="title"></span></a></p>
-              </h4>
+              
             </div>
             <hr />
             <a class="arrow-link" href="https://news.gov.bc.ca/ ">View more news</a>
@@ -123,13 +124,14 @@ layout: default
         <h2 class="blue-heading-bar">Twitter Feed</h2>
         <div class="rightColumnBox">
           <div class="feed twitter">
-            <div class="feedEntry">
-              <div class="tweet placeholder">
-                <div class="text">
-                </div>
-                <div class="date text-muted">
-                </div>
+            <div class="tweet placeholder">
+              <div class="text">
               </div>
+              <div class="date text-muted">
+              </div>
+            </div>
+            <div class="feedEntry">
+              
             </div>
             <hr />
             <a class="arrow-link" href="https://news.gov.bc.ca/ ">Join the conversation</a>
@@ -142,7 +144,7 @@ layout: default
             <div class="feedEntry">
               <ul class="list-unstyled">
                 <li><a href="http://catalogue.data.gov.bc.ca/feeds/custom.atom?">Subscribe to New Data</a></li>
-                <li><a href="http://bccataloguet.disqus.com/latest.rss]">Subscribe to Catalogue Comments</a></li>
+                <li><a href="http://bccataloguet.disqus.com/latest.rss">Subscribe to Catalogue Comments</a></li>
                 <li><a href="http://blog.data.gov.bc.ca/feed/">Subscribe to Blog Posts</a></li>
               </ul>
             </div>
