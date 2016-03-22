@@ -57,9 +57,8 @@
 
 .featureBoxes-3col>.featureBox h2 {
 	font-size: 32px;
+	color: #26639c;
 }
-
-
 
 #form-dataset-search {
 	position: relative;
@@ -84,6 +83,10 @@
 	background-position: center;
 	height: 48px;
 	width: 40px;
+
+	padding: 0;
+	text-indent: -9999em;
+	border-radius: 0;
 }
 
 .blue-heading-bar {
