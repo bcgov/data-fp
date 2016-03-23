@@ -5,32 +5,30 @@ layout: default
 <div id="homeTemplate" class="template container">
   <div class="row">
     <div id="beforeCarousel" class="col-xs-12">
-      <form id="form-dataset-search">
+      <form action="https://catalogue.data.gov.bc.ca/dataset" method="get" id="form-dataset-search">
         <div class="form-group">
           <input id="field-search-query" type="text" class="search tt-input form-control" name="q" value="" autocomplete="off" placeholder="Search the BC Data Catalogue" spellcheck="false" dir="auto">
-          <div class="search-icon">
-            <img src="{{ "/assets/gov/images/search_hdpi.png" | prepend: site.baseurl }}" />
-          </div>
+          <input type="submit" value="Search" class="search-icon" />
         </div>
       </form>
       <div class="table-responsive">  
         <div class="table featureBoxes-3col"> 
           <div class="featureBox col-sm-4">                  
             <div class="text">
-              <h1><a href="#" target="_self">3,582</a></h1>
+              <h2><span class="dataset_count"></h2>
               <h4>datasets in the BC Data Catalogue</h4>
             </div>
           </div>      
           <div class="featureBox col-sm-4">                  
             <div class="text">
-              <h1><a href="#" target="_self">1596</a></h1>
+              <h2><span class="open_dataset_count"></h2>
               <h4>Number of datasets published under the Open Government License</h4>
             </div>
           </div>      
           <div class="featureBox col-sm-4">                  
             <div class="text">
-              <h1><a href="#" target="_self">591</a></h1>
-              <h4>datasets published by the Ministry of the Environment</h4>
+              <h2><span class="recently_published_count"></h2>
+              <h4>Number of datasets published in the past 90 days</h4>
             </div>
           </div>      
         </div>  
@@ -38,7 +36,9 @@ layout: default
     </div>
   </div>
   {% if site.visualizations %}
-  <div id="databc-homepage-carousel" class="carousel slide" data-interval="false">
+  <div id="databc-homepage-carousel" class="carousel slide hidden-xs" data-interval="false">
+    <!-- Indicators -->
+    
     <!-- Carousel items -->
     <div class="carousel-inner">
       {% for vis in site.visualizations %}
@@ -48,11 +48,22 @@ layout: default
         <div class="item">
         {% endif %}
           <div class="slide-title">
-            <h2><a href="{{ vis.url }}">{{ vis.title }}</a></h2>
+            <h2>{{ vis.title }}</h2>
           </div>
           {{ vis.carousel_html }}
         </div>
       {% endfor %}
+      <div class="slide-title">
+        <ol class="carousel-indicators">
+          {% for vis in site.visualizations %}
+            {% if forloop.first == true %}
+            <li data-target="#databc-homepage-carousel" data-slide-to="{{ forloop.index0 }}" class="active"></li>
+            {% else %}
+            <li data-target="#databc-homepage-carousel" data-slide-to="{{ forloop.index0 }}"></li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </div>
     </div>
     <!-- Carousel nav -->
     <a class="left carousel-control" data-target="#databc-homepage-carousel" role="button" data-slide="prev">
@@ -64,57 +75,46 @@ layout: default
       <span class="sr-only">Next</span>
     </a>
   </div>
+
+  <div class="visible-xs">
+    <h2 class="blue-heading-bar">Data Visualizations</h2>
+    <div class="popular-services-text">
+      {% for vis in site.visualizations %}
+      <li><a class="show" href="{{ vis.url }}">{{ vis.title }}</a></li>
+      {% endfor %}
+    </div>
+  </div>
   {% endif %}
   
 
   <div id="main-content">
     <a id="main-content-anchor"></a>
     <div class="row">
-      <div class="homePageMainColumn col-sm-9">
+      <div class="homePageMainColumn col-sm-8 col-md-9">
       
         <h2 class="blue-heading-bar">Latest Additions to the BC Data Catalogue</h2>
-        <div class="popular-services-text">
-          <li><a class="show" href="https://catalogue.data.gov.bc.ca/dataset/okanagan-conservation-ranking-polygons">Okanagan Conservation Ranking Polygons</a></li>
-          <li><a class="show" href="https://catalogue.data.gov.bc.ca/dataset/land-act-transfer-of-administration-control-mto-">Land Act Transfer of Administration/Cont...</a></li>
-          <li><a class="show" href="https://catalogue.data.gov.bc.ca/dataset/water-survey-of-canada-sub-sub-drainage-areas">Water Survey of Canada Sub-Sub-Drainage ...</a></li>
+        <div class="popular-services-text recent-datasets">
         </div>
 
-        <h2 class="blue-heading-bar">Featured Datasets</h2>
+        <h2 class="blue-heading-bar">Popular Datasets</h2>
+        <div class="popular-services-text popular-datasets">
+        </div>
+
+        <h2 class="blue-heading-bar">Request Data</h2>
         <div class="popular-services-text">
-          <li><a class="show" href="http://catalogue.data.gov.bc.ca/dataset/fire-locations-current">Fire Locations - Current</a></li>
-          <li><a class="show" href="http://catalogue.data.gov.bc.ca/dataset/msp-blue-book">MSP Blue Book</a></li>
-          <li><a class="show" href="http://catalogue.data.gov.bc.ca/dataset/bc-personal-information-directory-pid">BC Personal Information Directory (PID)</a></li>
-        </div>  
+          <p>Want more data? Request data that you can use to build apps for BC citizens.</p>
+          <li><a class="show" href="http://www.data.gov.bc.ca/dbc/catalogue/data_requests/request_data.page?">Click here to request data</a></li>
+        </div>
       </div>
-      <div class="homePageRightColumn col-sm-3">
+      <div class="homePageRightColumn col-sm-4 col-md-3">
         <h2 class="blue-heading-bar">DataBC Blog</h2>
         <div class="rightColumnBox">
-          <div class="feed">
+          <div class="feed blog">
+            <h4 class="placeholder">
+              <p><a href="#" class="url" target="_blank"><span class="title"></span></a></p>
+            </h4>
             <div class="feedEntry">
-              <h4>
-                <p>
-                  <a href="http://blog.data.gov.bc.ca/2016/02/britishcolumbia-ca-a-digital-hub-of-community-data/">BritishColumbia.ca: A Digital Hub of Community Data</a>
-                </p>
-                <p class="date">February 4, 2016</p>
-              </h4>
-              <h4>
-                <p>
-                  <a href="http://blog.data.gov.bc.ca/2016/01/pay-for-pull/">Pay for Pull</a>
-                </p>
-                <p class="date">January 18, 2016</p>
-              </h4>
-              <h4>
-                <p>
-                  <a href="http://blog.data.gov.bc.ca/2015/12/databc-updates-and-expands-public-web-map-services/">DataBC updates and expands public Web Map Services</a>
-                </p>
-                <p class="date">December 16, 2015</p>
-              </h4>
-              <h4>
-                <p>
-                  <a href="http://blog.data.gov.bc.ca/2015/12/new-profile-pages-new-experiments/">New Profile Pages, New Experiments</a>
-                </p>
-                <p class="date">December 14, 2015</p>
-              </h4>
+              
             </div>
             <hr />
             <a class="arrow-link" href="https://news.gov.bc.ca/ ">View more news</a>
@@ -123,15 +123,31 @@ layout: default
 
         <h2 class="blue-heading-bar">Twitter Feed</h2>
         <div class="rightColumnBox">
-          <div class="feed">
-    
-            <!-- <h2>DataBC Blog</h2> -->
-              <div class="feedEntry">
-                <div class="twtr-bd">              <div class="twtr-timeline" style="height: auto;">                <div class="twtr-tweets">                  <div class="twtr-reference-tweet"></div><div id="tweet-id-2" class="twtr-tweet"><div class="twtr-tweet-wrap">         <div class="twtr-avatar">                  </div>         <div class="twtr-tweet-text">           <p>             <a target="_blank" href="http://twitter.com/intent/user?screen_name=Data_BC" class="twtr-user">Data_BC</a> RT @<a target="_blank" class="twtr-atreply" href="http://twitter.com/intent/user?screen_name=bcic">bcic</a>: Subscribe to BCIC News, our bi-weekly digest of <a target="_blank" class="twtr-hashtag" href="http://twitter.com/search?q=%23BCTECH">#BCTECH</a> stories and events <a class="twtr-hyperlink" target="_blank" href="https://t.co/8aBbGRH7OU">https://t.co/8aBbGRH7OU</a>             <em>            <a target="_blank" class="twtr-timestamp" time="Fri Feb 05 21:45:41 +0000 2016" href="http://twitter.com/Data_BC/status/695725004143595522">3 days ago</a> ·<a target="_blank" class="twtr-reply" href="http://twitter.com/intent/tweet?in_reply_to=695725004143595522">reply</a> ·<a target="_blank" class="twtr-rt" href="http://twitter.com/intent/retweet?tweet_id=695725004143595522">retweet</a> ·<a target="_blank" class="twtr-fav" href="http://twitter.com/intent/favorite?tweet_id=695725004143595522">favorite</a>             </em>            </p>         </div>       </div></div><div id="tweet-id-1" class="twtr-tweet"><div class="twtr-tweet-wrap">         <div class="twtr-avatar">                  </div>  <hr>       <div class="twtr-tweet-text">           <p>             <a target="_blank" href="http://twitter.com/intent/user?screen_name=Data_BC" class="twtr-user">Data_BC</a> RT @<a target="_blank" class="twtr-atreply" href="http://twitter.com/intent/user?screen_name=EhLaFrance">EhLaFrance</a>: So proud of @<a target="_blank" class="twtr-atreply" href="http://twitter.com/intent/user?screen_name=theknomos">theknomos</a> team on this huge opportunity with @<a target="_blank" class="twtr-atreply" href="http://twitter.com/intent/user?screen_name=MSFTVentures">MSFTVentures</a>! More on our blog: <a class="twtr-hyperlink" target="_blank" href="https://t.co/KVYNCXra3k">https://t.co/KVYNCXra3k</a>             <em>            <a target="_blank" class="twtr-timestamp" time="Thu Feb 04 21:57:01 +0000 2016" href="http://twitter.com/Data_BC/status/695365467637067776">4 days ago</a> ·<a target="_blank" class="twtr-reply" href="http://twitter.com/intent/tweet?in_reply_to=695365467637067776">reply</a> ·<a target="_blank" class="twtr-rt" href="http://twitter.com/intent/retweet?tweet_id=695365467637067776">retweet</a> ·<a target="_blank" class="twtr-fav" href="http://twitter.com/intent/favorite?tweet_id=695365467637067776">favorite</a>             </em>            </p>         </div>       </div></div>                  <!-- tweets show here -->                </div>              </div>            </div>
-                </div>
-      
+          <div class="feed twitter">
+            <div class="tweet placeholder">
+              <div class="text">
+              </div>
+              <div class="date text-muted">
+              </div>
+            </div>
+            <div class="feedEntry">
+              
+            </div>
             <hr />
             <a class="arrow-link" href="https://news.gov.bc.ca/ ">Join the conversation</a>
+          </div>
+        </div>
+
+        <h2 class="blue-heading-bar">Stay Up To Date</h2>
+        <div id="sutd" class="rightColumnBox">
+          <div class="feed">
+            <div class="feedEntry">
+              <ul class="list-unstyled">
+                <li><a href="http://catalogue.data.gov.bc.ca/feeds/custom.atom?">Subscribe to New Data</a></li>
+                <li><a href="http://bccataloguet.disqus.com/latest.rss">Subscribe to Catalogue Comments</a></li>
+                <li><a href="http://blog.data.gov.bc.ca/feed/">Subscribe to Blog Posts</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
