@@ -56,6 +56,7 @@
 
 		if(feedData.recent_datasets) {
 			var $recentDatasetsContainer = $('.recent-datasets');
+			$recentDatasetsContainer.empty();
 
 			for(var i in feedData.recent_datasets) {
 				var dataset = feedData.recent_datasets[i];
@@ -65,6 +66,7 @@
 
 		if(feedData.popular_datasets) {
 			var $popularDatasetsContainer = $('.popular-datasets');
+			$popularDatasetsContainer.empty();
 
 			for(var i in feedData.popular_datasets) {
 				var dataset = feedData.popular_datasets[i];
