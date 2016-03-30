@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             },
             jekyllServe: {
                 command: function(host, port) {
-                    return 'jekyll serve --host=' + host + ' --port=' + port;
+                    return 'jekyll serve --detach --host=' + host + ' --port=' + port;
                 }
             }
         },
