@@ -36,12 +36,13 @@ layout: default
     </div>
   </div>
   {% if site.visualizations %}
+  {% assign sorted_visualizations = site.visualizations | sort: "order" %}
   <div id="databc-homepage-carousel" class="carousel slide hidden-xs" data-interval="false">
     <!-- Indicators -->
 
     <!-- Carousel items -->
     <div class="carousel-inner">
-      {% for vis in site.visualizations %}
+      {% for vis in sorted_visualizations %}
         {% if forloop.first == true %}
         <div class="item active">
         {% else %}
@@ -55,7 +56,7 @@ layout: default
       {% endfor %}
       <div class="slide-title">
         <ol class="carousel-indicators">
-          {% for vis in site.visualizations %}
+          {% for vis in sorted_visualizations %}
             {% if forloop.first == true %}
             <li data-target="#databc-homepage-carousel" data-slide-to="{{ forloop.index0 }}" class="active"></li>
             {% else %}
