@@ -27,7 +27,7 @@ layout: default
           </div>
           <div class="featureBox col-sm-4">
             <div class="text">
-              <h2><a href="" data-href="https://catalogue.data.gov.bc.ca/api/3/action/package_search" class="recently_published_count_url"><span class="recently_published_count"></span></a></h2>
+              <h2><a href="" data-href="https://catalogue.data.gov.bc.ca/dataset" class="recently_published_count_url"><span class="recently_published_count"></span></a></h2>
               <h4>Number of datasets published in the past 90 days</h4>
             </div>
           </div>
@@ -36,12 +36,13 @@ layout: default
     </div>
   </div>
   {% if site.visualizations %}
+  {% assign sorted_visualizations = site.visualizations | sort: "order" %}
   <div id="databc-homepage-carousel" class="carousel slide hidden-xs" data-interval="false">
     <!-- Indicators -->
 
     <!-- Carousel items -->
     <div class="carousel-inner">
-      {% for vis in site.visualizations %}
+      {% for vis in sorted_visualizations %}
         {% if forloop.first == true %}
         <div class="item active">
         {% else %}
@@ -55,7 +56,7 @@ layout: default
       {% endfor %}
       <div class="slide-title">
         <ol class="carousel-indicators">
-          {% for vis in site.visualizations %}
+          {% for vis in sorted_visualizations %}
             {% if forloop.first == true %}
             <li data-target="#databc-homepage-carousel" data-slide-to="{{ forloop.index0 }}" class="active"></li>
             {% else %}
