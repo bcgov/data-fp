@@ -11,34 +11,34 @@ layout: default
           <input type="submit" value="Search" class="search-icon" />
         </div>
       </form>
-      <div class="table-responsive">  
-        <div class="table featureBoxes-3col"> 
-          <div class="featureBox col-sm-4">                  
+      <div class="table-responsive">
+        <div class="table featureBoxes-3col">
+          <div class="featureBox col-sm-4">
             <div class="text">
               <h2><a href="https://catalogue.data.gov.bc.ca/dataset"><span class="dataset_count"></span></a></h2>
               <h4>datasets in the BC Data Catalogue</h4>
             </div>
-          </div>      
-          <div class="featureBox col-sm-4">                  
+          </div>
+          <div class="featureBox col-sm-4">
             <div class="text">
               <h2><a href="https://catalogue.data.gov.bc.ca/dataset?license_id=2"><span class="open_dataset_count"></span></a></h2>
               <h4>Number of datasets published under the Open Government License</h4>
             </div>
-          </div>      
-          <div class="featureBox col-sm-4">                  
+          </div>
+          <div class="featureBox col-sm-4">
             <div class="text">
               <h2><a href="" data-href="https://catalogue.data.gov.bc.ca/api/3/action/package_search" class="recently_published_count_url"><span class="recently_published_count"></span></a></h2>
               <h4>Number of datasets published in the past 90 days</h4>
             </div>
-          </div>      
-        </div>  
+          </div>
+        </div>
       </div>
     </div>
   </div>
   {% if site.visualizations %}
   <div id="databc-homepage-carousel" class="carousel slide hidden-xs" data-interval="false">
     <!-- Indicators -->
-    
+
     <!-- Carousel items -->
     <div class="carousel-inner">
       {% for vis in site.visualizations %}
@@ -85,13 +85,12 @@ layout: default
     </div>
   </div>
   {% endif %}
-  
+
 
   <div id="main-content">
     <a id="main-content-anchor"></a>
     <div class="row">
       <div class="homePageMainColumn col-sm-8 col-md-9">
-      
         <h2 class="blue-heading-bar"><a href="https://catalogue.data.gov.bc.ca/dataset?q=&sort=record_publish_date+desc%2C+metadata_modified+desc">Latest Additions to the BC Data Catalogue</a></h2>
         <div class="popular-services-text recent-datasets">
         </div>
@@ -103,7 +102,7 @@ layout: default
         <h2 class="blue-heading-bar">Request Data</h2>
         <div class="popular-services-text">
           <p>Want more data? Request data that you can use to build apps for BC citizens.</p>
-          <li><a class="show" href="http://www.data.gov.bc.ca/dbc/catalogue/data_requests/request_data.page?">Click here to request data</a></li>
+          <li><a class="show" href="https://forms.gov.bc.ca/databc-data-request/">Click here to request data</a></li>
         </div>
       </div>
       <div class="homePageRightColumn col-sm-4 col-md-3">
@@ -114,10 +113,10 @@ layout: default
               <p><a href="#" class="url" target="_blank"><span class="title"></span></a></p>
             </h4>
             <div class="feedEntry">
-              
+
             </div>
             <hr />
-            <a class="arrow-link" href="https://news.gov.bc.ca/ ">View more news</a>
+            <a class="arrow-link" href ="http://blog.data.gov.bc.ca/">View more news</a>
           </div>
         </div>
 
@@ -131,10 +130,10 @@ layout: default
               </div>
             </div>
             <div class="feedEntry">
-              
+
             </div>
             <hr />
-            <a class="arrow-link" href="https://news.gov.bc.ca/ ">Join the conversation</a>
+            <a class="arrow-link" href = "http://twitter.com/Data_BC">Join the conversation</a>
           </div>
         </div>
 
