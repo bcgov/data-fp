@@ -17,27 +17,46 @@
 			updateCKANData(feed_data);
 			updateBlogFeed(feed_data);
 			updateTwitterFeed(feed_data);
-
-			console.log(feed_data);
 		}
 
-		$.ajax({
-			url: feedsUrl
-		})
-		.done(function(result) {
-			feed_data.dataset_count = result.totalDatasets;
-			feed_data.open_dataset_count = result.openGovDatasetCount;
-			feed_data.recently_published_count = result.last90daysDatasets;
-			feed_data.tweets = result.dataBCTweets;
-			feed_data.blog_posts = result.dataBCBlogPosts;
-			feed_data.recent_datasets = result.recentDatasets;
-			feed_data.popular_datasets = result.popularDatasets;
+		setTimeout(function() {
+			$.ajax({
+				url: feedsUrl
+			})
+			.done(function(result) {
+				feed_data.dataset_count = result.totalDatasets;
+				feed_data.open_dataset_count = result.openGovDatasetCount;
+				feed_data.recently_published_count = result.last90daysDatasets;
+				feed_data.tweets = result.dataBCTweets;
+				feed_data.blog_posts = result.dataBCBlogPosts;
+				feed_data.recent_datasets = result.recentDatasets;
+				feed_data.popular_datasets = result.popularDatasets;
 
-			updateCKANData(feed_data);
-			updateBlogFeed(feed_data);
-			updateTwitterFeed(feed_data);
+				updateCKANData(feed_data);
+				updateBlogFeed(feed_data);
+				updateTwitterFeed(feed_data);
 
-			localStorage.setItem('feedData', JSON.stringify(feed_data));
+				localStorage.setItem('feedData', JSON.stringify(feed_data));
+			});
+		}, 10);
+
+		// Load the first slide (if it's visible)
+		var $firstSlideIframe = $('#databc-homepage-carousel .item:first-child iframe');
+		if($firstSlideIframe.is(':visible')) {
+			var src = $firstSlideIframe.data('src');
+			$firstSlideIframe.attr('src', src);
+		}
+
+		$('#databc-homepage-carousel').bind('slid.bs.carousel', function(e) {
+			// Lazy load the iframe src
+			if(e.relatedTarget) {
+				var $target = $(e.relatedTarget);
+				var $iframe = $target.find('iframe');
+				if(!$iframe.attr('src')) {
+					var src = $iframe.data('src');
+					$iframe.attr('src', src);
+				}
+			}
 		});
 	});
 
@@ -52,6 +71,19 @@
 
 		if(feedData.recently_published_count) {
 			$('.recently_published_count').html(feedData.recently_published_count);
+			var baseUrl = $('.recently_published_count_url').data('href');
+
+			var today = new Date();
+			var threeMonthsAgo = new Date();
+			threeMonthsAgo.setMonth(today.getMonth() - 3);
+
+			today.setUTCHours(0,0,0,0);
+			threeMonthsAgo.setUTCHours(0,0,0,0);
+
+			var dateString = "?q=record_publish_date:[" + threeMonthsAgo.toISOString() + " TO " + today.toISOString() + "]";
+			var fullUrl = baseUrl + dateString;
+
+			$('.recently_published_count_url').attr('href', fullUrl);
 		}
 
 		if(feedData.recent_datasets) {
@@ -105,8 +137,6 @@
 				var $tweet = $placeholder.clone().removeClass('placeholder');
 				$tweet.find('.text').html(tweetData.text);
 				$tweet.find('.date').html($('<a></a>').attr('href', tweetData.url).html(tweetData.created_at));
-
-				console.log($tweet.html());
 
 				$feedEntry.append($tweet);
 			}
