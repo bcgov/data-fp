@@ -1,0 +1,145 @@
+(function($) {
+	$(document).ready(function() {
+		var feedsUrl = 'https://dbcfeeds.api.gov.bc.ca/';
+
+		var feed_data = {
+			dataset_count: 0,
+			open_dataset_count: 0,
+			recently_published_count: 0,
+			tweets: [],
+			blog_posts: []
+		}
+
+		var cachedFeedData = localStorage.getItem('feedData');
+		if(cachedFeedData) {
+			feed_data = JSON.parse(cachedFeedData);
+
+			updateCKANData(feed_data);
+			updateBlogFeed(feed_data);
+			updateTwitterFeed(feed_data);
+		}
+
+		setTimeout(function() {
+			$.ajax({
+				url: feedsUrl
+			})
+			.done(function(result) {
+				feed_data.dataset_count = result.totalDatasets;
+				feed_data.open_dataset_count = result.openGovDatasetCount;
+				feed_data.recently_published_count = result.last90daysDatasets;
+				feed_data.tweets = result.dataBCTweets;
+				feed_data.blog_posts = result.dataBCBlogPosts;
+				feed_data.recent_datasets = result.recentDatasets;
+				feed_data.popular_datasets = result.popularDatasets;
+
+				updateCKANData(feed_data);
+				updateBlogFeed(feed_data);
+				updateTwitterFeed(feed_data);
+
+				localStorage.setItem('feedData', JSON.stringify(feed_data));
+			});
+		}, 10);
+
+		// Load the first slide (if it's visible)
+		var $firstSlideIframe = $('#databc-homepage-carousel .item:first-child iframe');
+		if($firstSlideIframe.is(':visible')) {
+			var src = $firstSlideIframe.data('src');
+			$firstSlideIframe.attr('src', src);
+		}
+
+		$('#databc-homepage-carousel').bind('slid.bs.carousel', function(e) {
+			// Lazy load the iframe src
+			if(e.relatedTarget) {
+				var $target = $(e.relatedTarget);
+				var $iframe = $target.find('iframe');
+				if(!$iframe.attr('src')) {
+					var src = $iframe.data('src');
+					$iframe.attr('src', src);
+				}
+			}
+		});
+	});
+
+	function updateCKANData(feedData) {
+		if(feedData.dataset_count) {
+			$('.dataset_count').html(feedData.dataset_count);
+		}
+
+		if(feedData.open_dataset_count) {
+			$('.open_dataset_count').html(feedData.open_dataset_count);
+		}
+
+		if(feedData.recently_published_count) {
+			$('.recently_published_count').html(feedData.recently_published_count);
+			var baseUrl = $('.recently_published_count_url').data('href');
+
+			var today = new Date();
+			var threeMonthsAgo = new Date();
+			threeMonthsAgo.setMonth(today.getMonth() - 3);
+
+			today.setUTCHours(0,0,0,0);
+			threeMonthsAgo.setUTCHours(0,0,0,0);
+
+			var dateString = "?q=record_publish_date:[" + threeMonthsAgo.toISOString() + " TO " + today.toISOString() + "]";
+			var fullUrl = baseUrl + dateString;
+
+			$('.recently_published_count_url').attr('href', fullUrl);
+		}
+
+		if(feedData.recent_datasets) {
+			var $recentDatasetsContainer = $('.recent-datasets');
+			$recentDatasetsContainer.empty();
+
+			for(var i in feedData.recent_datasets) {
+				var dataset = feedData.recent_datasets[i];
+				$recentDatasetsContainer.append($('<li></li>').html($('<a target="_blank"></a>').attr('href', dataset.url).html(dataset.title)));
+			}
+		}
+
+		if(feedData.popular_datasets) {
+			var $popularDatasetsContainer = $('.popular-datasets');
+			$popularDatasetsContainer.empty();
+
+			for(var i in feedData.popular_datasets) {
+				var dataset = feedData.popular_datasets[i];
+				$popularDatasetsContainer.append($('<li></li>').html($('<a target="_blank"></a>').attr('href', dataset.url).html(dataset.title)));
+			}
+		}
+	}
+
+	function updateBlogFeed(feedData) {
+		if(feedData.blog_posts) {
+			var $placeholder = $('.feed.blog .placeholder').clone();
+			var $feedEntry = $('.feed.blog .feedEntry');
+			$feedEntry.empty();
+
+			var blog_posts = feedData.blog_posts;
+			for(var i = 0; i < blog_posts.length; i++) {
+				var entryData = blog_posts[i];
+				var $entry = $placeholder.clone().removeClass('placeholder');
+				$entry.find('.url').attr('href', entryData.url);
+				$entry.find('.title').html(entryData.title);
+
+				$feedEntry.append($entry);
+			}
+		}
+	}
+
+	function updateTwitterFeed(feedData) {
+		if(feedData.tweets) {
+			var $placeholder = $('.feed.twitter .placeholder').clone();
+			var $feedEntry = $('.feed.twitter .feedEntry');
+			$feedEntry.empty();
+
+			var tweets = feedData.tweets;
+			for(var i = 0; i < tweets.length; i++) {
+				var tweetData = tweets[i];
+				var $tweet = $placeholder.clone().removeClass('placeholder');
+				$tweet.find('.text').html(tweetData.text);
+				$tweet.find('.date').html($('<a></a>').attr('href', tweetData.url).html(tweetData.created_at));
+
+				$feedEntry.append($tweet);
+			}
+		}
+	}
+})(jQuery);

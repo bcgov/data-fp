@@ -1,0 +1,9 @@
+.page-content {
+	padding-top: $navbar-height;
+}
+
+@include breakpoint(xs) {
+	.page-content {
+		padding-top: 68px;
+	}
+}

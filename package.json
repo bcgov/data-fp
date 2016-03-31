@@ -1,8 +1,13 @@
 {
-  "name": "databc_jekyll",
+  "name": "data-fp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcgov/data-fp.git"
+  },
+  "license": "MIT",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "DataBC Front Page",
+  "author": "info@highwaythree.com",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-concurrent": "^2.2.1",

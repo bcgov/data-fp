@@ -16,6 +16,11 @@ module.exports = function (grunt) {
                 command: function(host, port) {
                     return 'jekyll serve --detach --host=' + host + ' --port=' + port;
                 }
+            },
+            jekyllDev: {
+                command: function(host, port) {
+                    return 'jekyll serve --host=' + host + ' --port=' + port;
+                }
             }
         },
 
@@ -42,7 +47,7 @@ module.exports = function (grunt) {
             serve: [
                 'sass',
                 'watch',
-                'shell:jekyllServe:127.0.0.1:4000'
+                'shell:jekyllDev:127.0.0.1:4000'
             ],
             options: {
                 logConcurrentOutput: true
