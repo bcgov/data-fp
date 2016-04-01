@@ -105,9 +105,18 @@
 .popular-services-text {
     background-color: #fff;
     margin-bottom: 30px;
-    padding: 10px 15px;
+    padding: 10px 15px 10px 30px;
     font-size: 16px;
     color: #1a5a96;
+}
+
+.popular-services-text ul {
+	margin: 0;
+	padding: 0;
+}
+
+.popular-services-text.request-data p {
+	margin-left: -15px;
 }
 
 .popular-services-text p {
