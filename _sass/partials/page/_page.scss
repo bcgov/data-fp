@@ -1,6 +1,5 @@
 .page-content {
-	padding-top: $navbar-height-15; # have padding match that below featurebox
-}
+	padding-top: $navbar-height-15;
 
 @include breakpoint(xs) {
 	.page-content {
