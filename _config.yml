@@ -21,7 +21,7 @@ markdown: kramdown
 # Exclude some directories from being included
 # Excluding css/ & sass/ because we want control over it
 #include: [".htaccess"]
-exclude: ['css', '_sass', 'node_modules', 'bower_components', 'bower.json', 'Gruntfile.js', 'package.json']
+exclude: ['css', '_sass', 'node_modules', 'bower_components', 'bower.json', 'Gruntfile.js', 'package.json', 'README.md', 'LICENSE', 'Dockerfile']
 
 keep_files: ['_site/css', '_site/js', '_site/fonts']
 
