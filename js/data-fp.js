@@ -31,6 +31,8 @@
 				feed_data.blog_posts = result.dataBCBlogPosts;
 				feed_data.recent_datasets = result.recentDatasets;
 				feed_data.popular_datasets = result.popularDatasets;
+				feed_data.popular_services = result.popularServices;
+				feed_data.popular_applications = result.popularApplications;
 
 				updateCKANData(feed_data);
 				updateBlogFeed(feed_data);
@@ -87,23 +89,19 @@
 		}
 
 		if(feedData.recent_datasets) {
-			var $recentDatasetsContainer = $('.recent-datasets');
-			$recentDatasetsContainer.empty();
-
-			for(var i in feedData.recent_datasets) {
-				var dataset = feedData.recent_datasets[i];
-				$recentDatasetsContainer.append($('<li></li>').html($('<a target="_blank"></a>').attr('href', dataset.url).html(dataset.title)));
-			}
+			populateCKANContainer(feedData.recent_datasets, '.recent-datasets');
 		}
 
 		if(feedData.popular_datasets) {
-			var $popularDatasetsContainer = $('.popular-datasets');
-			$popularDatasetsContainer.empty();
+			populateCKANContainer(feedData.popular_datasets, '.popular-datasets');
+		}
 
-			for(var i in feedData.popular_datasets) {
-				var dataset = feedData.popular_datasets[i];
-				$popularDatasetsContainer.append($('<li></li>').html($('<a target="_blank"></a>').attr('href', dataset.url).html(dataset.title)));
-			}
+		if(feedData.popular_services) {
+			populateCKANContainer(feedData.popular_services, '.popular-services');
+		}
+
+		if(feedData.popular_applications) {
+			populateCKANContainer(feedData.popular_applications, '.popular-applications');
 		}
 	}
 
@@ -139,6 +137,19 @@
 				$tweet.find('.date').html($('<a></a>').attr('href', tweetData.url).html(tweetData.created_at));
 
 				$feedEntry.append($tweet);
+			}
+		}
+	}
+
+	function populateCKANContainer(datasets, eleTarget) {
+		var $container = $(eleTarget);
+
+		if($container.length > 0) {
+			$container.empty();
+
+			for(var i in datasets) {
+				var dataset = datasets[i];
+				$container.append($('<li></li>').html($('<a target="_blank"></a>').attr('href', dataset.url).html(dataset.title)));
 			}
 		}
 	}
