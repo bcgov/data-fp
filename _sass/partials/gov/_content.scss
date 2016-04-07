@@ -41,22 +41,17 @@
 	display: table-row;
 }
 
-.featureBoxes-3col {
-	margin-top: 15px;
-	margin-bottom: 30px;
-}
 
 .featureBoxes-3col>.featureBox, .tiles-row>.tile {
 	background-color: #fff;
 	display: table-cell;
 	float: none;
 	vertical-align: top;
-	padding: 20px 15px;
 	border-right: 1px solid #ddd;
 }
 
 .featureBoxes-3col>.featureBox h2 {
-	font-size: 32px;
+	font-size: 3em;
 	color: #26639c;
 }
 
