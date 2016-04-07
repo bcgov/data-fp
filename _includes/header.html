@@ -15,18 +15,12 @@
                         <div class="search-boarder-arror visible-xs-block"></div>
                         <div class="header-main-right">
                             <div class="gov search"> 
-                             <form role="form" class="" method="get" action="http://www2.gov.bc.ca/gov/search" id="suggestion_form">                         
-                                    <label class="sr-only" for="global-search">Search</label>
-                                        <input type="hidden" value="2E4C7D6BCAA4470AAAD2DCADF662E6A0" name="id">
-                                        <input type="text" onkeyup="searchBoxKeypress(event, 500)" autocomplete="off" value="" name="q" placeholder="Search BC Gov" class="searchbox" id="global-search"> 
-                                        <div style="display:none" id="hiddenVals">
-                                            <span id="site">default_collection</span>
-                                            <span id="client">default_frontend</span>
-                                        </div> 
-                                        <table id="search_suggest" class="search-suggestion-full ss-gac-m"></table>
-                                        <div class="search-trigger"> </div>
-                                    </form>
-                                </div>   
+                                <form role="form" class="" method="get" action="https://catalogue.data.gov.bc.ca/dataset" id="form-dataset-search-header">
+                                    <label class="sr-only" for="dataset-search">Search</label>
+                                    <input type="text" autocomplete="off" value="" name="q" placeholder="Search BC Data Catalogue" class="searchbox" id="dataset-search"> 
+                                    <div class="search-trigger"> </div>
+                                </form>
+                            </div>   
                         </div>
                     </div>
                 </div>

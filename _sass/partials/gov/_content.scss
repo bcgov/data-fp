@@ -47,17 +47,25 @@
 }
 
 .featureBoxes-3col>.featureBox, .tiles-row>.tile {
-	background-color: #fff;
+	background-color: rgba(0, 51, 102, 0.8);
 	display: table-cell;
 	float: none;
 	vertical-align: top;
-	padding: 20px 15px;
-	border-right: 1px solid #ddd;
+	padding: 5px 15px;
+	border-right: 1px solid #38598a;
+}
+
+.featureBoxes-3col>.featureBox:last-child, .tiles-row>.tile:last-child {
+	border-right: 0;
+}
+
+.featureBoxes-3col>.featureBox .text,
+.featureBoxes-3col>.featureBox a {
+	color: #fff;
 }
 
 .featureBoxes-3col>.featureBox h2 {
 	font-size: 32px;
-	color: #26639c;
 }
 
 #form-dataset-search {

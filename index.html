@@ -22,13 +22,13 @@ layout: default
           <div class="featureBox col-sm-4">
             <div class="text">
               <h2><a href="https://catalogue.data.gov.bc.ca/dataset?license_id=2"><span class="open_dataset_count"></span></a></h2>
-              <h4>Number of datasets published under the Open Government License</h4>
+              <h4>number of datasets published under the Open Government License</h4>
             </div>
           </div>
           <div class="featureBox col-sm-4">
             <div class="text">
               <h2><a href="" data-href="https://catalogue.data.gov.bc.ca/dataset" class="recently_published_count_url"><span class="recently_published_count"></span></a></h2>
-              <h4>Number of datasets published in the past 90 days</h4>
+              <h4>number of datasets published in the past 90 days</h4>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@ layout: default
     </div>
   </div>
   {% if site.visualizations %}
-  {% assign sorted_visualizations = site.visualizations | sort: "order" %}
+  {% assign sorted_visualizations = site.visualizations | where: "published", "true" | sort: "order"  %}
   <div id="databc-homepage-carousel" class="carousel slide hidden-xs" data-interval="false">
     <!-- Indicators -->
 
@@ -92,12 +92,20 @@ layout: default
     <a id="main-content-anchor"></a>
     <div class="row">
       <div class="homePageMainColumn col-sm-8 col-md-9">
-        <h2 class="blue-heading-bar"><a href="https://catalogue.data.gov.bc.ca/dataset?q=&sort=record_publish_date+desc%2C+metadata_modified+desc">Latest Additions to the BC Data Catalogue</a></h2>
+        <h2 class="blue-heading-bar"><a href="https://catalogue.data.gov.bc.ca/dataset?q=&sort=record_publish_date+desc%2C+metadata_modified+desc">Latest additions to the BC Data Catalogue</a></h2>
         <ul class="popular-services-text recent-datasets">
         </ul>
 
         <h2 class="blue-heading-bar"><a href="https://catalogue.data.gov.bc.ca/dataset?q=&sort=views_total+desc">Most popular datasets in the BC Data Catalogue</a></h2>
         <ul class="popular-services-text popular-datasets">
+        </ul>
+
+        <h2 class="blue-heading-bar"><a href="https://catalogue.data.gov.bc.ca/dataset?type=WebService&q=&download_audience=Public&sort=views_total+desc">Most popular web services in the BC Data Catalogue</a></h2>
+        <ul class="popular-services-text popular-services">
+        </ul>
+
+        <h2 class="blue-heading-bar"><a href="https://catalogue.data.gov.bc.ca/dataset?q=&type=Application&download_audience=Public&sort=views_total+desc">Most popular web applications in the BC Data Catalogue</a></h2>
+        <ul class="popular-services-text popular-applications">
         </ul>
 
         <h2 class="blue-heading-bar">Request Data</h2>
@@ -146,7 +154,7 @@ layout: default
             <div class="feedEntry">
               <ul class="list-unstyled">
                 <li><a href="http://catalogue.data.gov.bc.ca/feeds/custom.atom?">Subscribe to New Data</a></li>
-                <li><a href="http://bccataloguet.disqus.com/latest.rss">Subscribe to Catalogue Comments</a></li>
+                <li><a href="http://bccatalogue.disqus.com/latest.rss">Subscribe to Catalogue Comments</a></li>
                 <li><a href="http://blog.data.gov.bc.ca/feed/">Subscribe to Blog Posts</a></li>
               </ul>
             </div>
