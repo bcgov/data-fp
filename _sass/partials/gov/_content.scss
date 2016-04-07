@@ -41,6 +41,10 @@
 	display: table-row;
 }
 
+.featureBoxes-3col {
+	margin-top: 15px;
+ 	margin-bottom: 30px;
+ }
 
 .featureBoxes-3col>.featureBox, .tiles-row>.tile {
 	background-color: #fff;
@@ -51,7 +55,7 @@
 }
 
 .featureBoxes-3col>.featureBox h2 {
-	font-size: 3em;
+	font-size: 32px;
 	color: #26639c;
 }
 
