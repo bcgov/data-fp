@@ -1,5 +1,6 @@
 .page-content {
 	padding-top: $navbar-height-15;
+}
 
 @include breakpoint(xs) {
 	.page-content {
