@@ -27,8 +27,7 @@ keep_files: ['_site/css', '_site/js', '_site/fonts']
 
 collections:
   visualizations:
-    output: true
-    permalink: /visualization/:path
+    output: false
 
 # Serving
 incremental: true
