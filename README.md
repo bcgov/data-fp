@@ -76,8 +76,8 @@ Here is an example of a visualization:
 ```
 ---
 layout: visualization
-title:  My Visualization
-publish_date:   2016-02-24 09:41:00 -0800
+title: My Visualization
+published: true
 source:
   name: The name of my Visualization source
   url: http://link.to.my.visualization.source.com
