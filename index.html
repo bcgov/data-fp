@@ -79,11 +79,11 @@ layout: default
 
   <div class="visible-xs">
     <h2 class="blue-heading-bar">Data Visualizations</h2>
-    <div class="popular-services-text">
-      {% for vis in site.visualizations %}
-      <li><a class="show" href="{{ vis.url }}">{{ vis.title }}</a></li>
+    <ul class="popular-services-text vis-list">
+      {% for vis in sorted_visualizations %}
+      <li><a class="show" href="{{ vis.iframe_url }}" target="_blank">{{ vis.title }}</a></li>
       {% endfor %}
-    </div>
+    </ul>
   </div>
   {% endif %}
 
