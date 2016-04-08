@@ -3,6 +3,8 @@ _site
 .jekyll-metadata
 .svn
 
+_config.yml
+
 extra
 node_modules/
 bower_components/
