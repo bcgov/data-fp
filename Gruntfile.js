@@ -21,13 +21,6 @@ module.exports = function (grunt) {
                 command: function(host, port) {
                     return 'jekyll serve --host=' + host + ' --port=' + port;
                 }
-            },
-
-            changeUrl: {
-                command: function() {
-                    var url = grunt.option('url').replace(/\//g, "\\/");
-                    return "sed -i '' 's/^url:[ ]*[\"a-zA-Z\/\.:]*/url: \"" + url + "\"/g' _config.yml"
-                }
             }
         },
 
@@ -117,19 +110,22 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', [
+        'makeconfig',
         'sass',
         'copy',
         'shell:jekyllBuild'
     ]);
 
-    grunt.registerTask('changeurl', 'Changes the `url` parameter inside _config.yaml', function() {
+    grunt.registerTask('makeconfig', 'Creates a _config.yml file from the config template', function() {
+        var YAML = require('yamljs');
+        var config = YAML.load('_config.template.yml');
+
         var url = grunt.option('url');
-        if(!url) {
-            grunt.log.writeln('changeurl: missing --url argument');
-            return false;
+        if(url) {
+            config.url = url;
         }
 
-        grunt.task.run('shell:changeUrl');
+        grunt.file.write('_config.yml', YAML.stringify(config));
     });
 
 };
