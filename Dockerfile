@@ -18,9 +18,11 @@ RUN \
   && DEBIAN_FRONTEND=noninteractive apt-get clean \  
   && rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir /home/jekyll && cd /home/jekyll \
-    git clone https://github.com/bcgov/data-fp.git /home/jekyll
-RUN git clone https://github.com/bcgov/data-fp-features.git repo1 && cp -r repo1/* /usr/src/app
+RUN git clone https://github.com/bcgov/data-fp-features.git /tmp/repo1 \
+  && cp -r /tmp/repo1/* /usr/src/app \
+  && rm -Rf /tmp/repo1
+
+ADD . /usr/src/app
 RUN npm install
 RUN bower install --allow-root
 RUN grunt build    
