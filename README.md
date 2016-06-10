@@ -13,7 +13,7 @@ This provides the frontpage of data.gov.bc.ca.
 3. [bower][2]
 4. [Grunt][3]
 
-There is also a [Vagrant box][4] available to make setup easier.
+There is also a [Vagrant box][4] and [Docker][5] available to make setup easier.
 
 ## Installation
 1. Clone the repo and ```cd``` into the directory.
@@ -90,4 +90,5 @@ order: 100
 [1]: https://www.npmjs.com/
 [2]: http://bower.io/
 [3]: http://gruntjs.com/
-[4]: http://
+[4]: https://github.com/bcgov/bcdc-devops/tree/master/data-fp
+[5]: https://raw.githubusercontent.com/bcgov/data-fp/master/Dockerfile
