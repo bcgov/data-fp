@@ -13,7 +13,7 @@ This provides the frontpage of data.gov.bc.ca.
 3. [bower][2]
 4. [Grunt][3]
 
-There is also a [Vagrant box][4] and [Docker][5] available to make setup easier.
+There is also a [Vagrant box][4] and [Dockerfile][5] available to make setup easier.
 
 ## Installation
 1. Clone the repo and ```cd``` into the directory.
