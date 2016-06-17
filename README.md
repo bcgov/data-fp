@@ -1,4 +1,4 @@
-[![Build Status](https://cis.data.gov.bc.ca/job/data-fp-test/badge/icon)](https://cis.data.gov.bc.ca/job/data-fp-test/)
+[![Build Status](https://cis.data.gov.bc.ca/job/bcdc/job/data-fp-test/badge/icon)](https://cis.data.gov.bc.ca/job/bcdc/job/data-fp-test/)
 [![Stories in Ready](https://badge.waffle.io/bcgov/ckanext-bcgov.png?label=ready&title=Ready)](https://waffle.io/bcgov/ckanext-bcgov)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcgov/data-fp/master/LICENSE)
 <a rel="Inspiration" href="https://github.com/BCDevExchange/docs/blob/master/discussion/projectstates.md"><img alt="An idea being explored and shaped. Open for discussion, but may never go anywhere." style="border-width:0" src="http://bcdevexchange.org/badge/1.svg" title="An idea being explored and shaped. Open for discussion, but may never go anywhere." /></a>
