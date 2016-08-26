@@ -13,8 +13,8 @@ RUN git clone https://github.com/bcgov/data-fp-features.git /tmp/repo1 \
   && rm -Rf /tmp/repo1  
 ADD . /opt/app-root
 RUN cd /opt/app-root && \
- npm install
-RUN bower install --allow-root
+ npm install && \
+ bower install --allow-root
 RUN grunt build -url=$BASEURL
 WORKDIR /opt/app-root
 RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
