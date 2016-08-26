@@ -10,9 +10,10 @@ RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
   && npm install -g grunt-cli serve
   
 ADD . /opt/app-root
-RUN npm install
-RUN bower install --allow-root
-RUN grunt build
+RUN cd /opt/app-root && \
+ npm install && \
+ bower install --allow-root && \
+ grunt build
 WORKDIR /opt/app-root
 RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
 USER 1001
