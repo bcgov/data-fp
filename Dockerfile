@@ -16,7 +16,7 @@ ADD . /opt/app-root
 RUN cd /opt/app-root && \
  npm install && \
  bower install --allow-root && \
- grunt build
+ grunt build -url=$BASEURL
 WORKDIR /opt/app-root
 RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
 USER 1001
