@@ -8,7 +8,10 @@ RUN git config --global url.https://github.com/.insteadOf git://github.com/ \
     jekyll \
   && npm install -g bower \
   && npm install -g grunt-cli serve
-  
+
+RUN git clone https://github.com/bcgov/data-fp-features.git /tmp/repo1 \
+  && cp -r /tmp/repo1/* /opt/app-root \
+  && rm -Rf /tmp/repo1  
 ADD . /opt/app-root
 RUN cd /opt/app-root && \
  npm install && \
