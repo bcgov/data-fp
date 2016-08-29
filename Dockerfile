@@ -4,7 +4,7 @@ MAINTAINER leo.lou@gov.bc.ca
 RUN apk update \
   && apk add alpine-sdk nodejs python \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \
-  && gem install --no-ri --no-rdoc jekyll \
+  && gem install --no-ri --no-rdoc jekyll jekyll-sass\
   && npm install -g browserify bower grunt-cli
 
 RUN mkdir -p /app
@@ -17,7 +17,8 @@ WORKDIR /app
 ADD . /app
 RUN npm install && npm update
 RUN bower install --allow-root
-RUN grunt build    
+RUN grunt build -url $BASEURL 
+RUN npm uninstall -g browserify bower grunt-cli
 
 RUN adduser -S jekyll
 RUN chown -R jekyll:0 /app && chmod -R 770 /app
