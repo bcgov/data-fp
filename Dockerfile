@@ -5,7 +5,7 @@ RUN apk update \
   && apk add alpine-sdk nodejs python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \
   && gem install --no-ri --no-rdoc ffi jekyll jekyll-sass \
-  && npm install -g browserify bower grunt-cli
+  && npm install -g browserify bower grunt-cli serve
 
 RUN mkdir -p /app
   
@@ -15,7 +15,7 @@ RUN git clone https://gogs.data.gov.bc.ca/bcdc/data-fp-features.git /tmp/repo1 \
   
 WORKDIR /app
 ADD . /app
-RUN npm install -g && npm update
+RUN npm install -g && npm update -g
 RUN bower install --allow-root
 RUN grunt build -url $BASEURL
 
