@@ -15,7 +15,7 @@ RUN git clone https://gogs.data.gov.bc.ca/bcdc/data-fp-features.git /tmp/repo1 \
   
 WORKDIR /app
 ADD . /app
-RUN npm install -g && npm update -g
+RUN npm install -g && npm update
 RUN bower install --allow-root
 RUN grunt build -url $BASEURL
 
