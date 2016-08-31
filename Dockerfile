@@ -24,5 +24,6 @@ RUN chown -R jekyll:0 /app && chmod -R 770 /app
 RUN apk del --purge alpine-sdk python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev  
 
 USER jekyll
+RUN grunt sass:build && grunt copy
 EXPOSE 4000
-CMD serve -C -D -p 4000 --compress /app
+CMD serve -C -D -p 4000 --compress /app/_site
