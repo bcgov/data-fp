@@ -26,4 +26,4 @@ USER jekyll
 RUN grunt sass:build && grunt copy
 WORKDIR /app/_site
 EXPOSE 3000
-CMD serve -C -D -J -S --compress -f .
+CMD serve -C -D -J -S --compress -f ./favicon.ico .
