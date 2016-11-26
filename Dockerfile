@@ -10,6 +10,7 @@ RUN apk update \
 RUN mkdir -p /app
   
 RUN git clone $FEATURESRC /tmp/repo1 \
+  && git -C /tmp/repo1 pull \
   && cp -r /tmp/repo1/* /app \
   && rm -rf /tmp/repo1 
   
