@@ -1,32 +1,30 @@
-FROM node:onbuild
-RUN \
-  DEBIAN_FRONTEND=noninteractive apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    curl \
-    git \
-    ruby \
-    ruby-dev \
-  && git config --global url.https://github.com/.insteadOf git://github.com/ \
-  && gem install --no-ri --no-rdoc \
-    jekyll \
-  && mkdir /src \
-    build-essential \
-    ruby-dev \
-  && cd /src \
-  && git clone https://github.com/BCDevOps/data-fp.git \
-  && npm install -g bower \
-  && npm install -g grunt-cli \
-  && cd /src/data-fp \
-  && npm install \
-  && bower install --allow-root \
-  && grunt build \
-  && jekyll serve /src/data-fp --detach \
-  && DEBIAN_FRONTEND=noninteractive apt-get purge -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get clean \  
-  && rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+FROM alpine:3.4
+MAINTAINER leo.lou@gov.bc.ca
 
-EXPOSE 4000
-VOLUME /src
-WORKDIR /src
-ENTRYPOINT ["jekyll", "serve" "--detach"]
+RUN apk update \
+  && apk add alpine-sdk nodejs python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev \
+  && git config --global url.https://github.com/.insteadOf git://github.com/ \
+  && gem install --no-ri --no-rdoc ffi jekyll jekyll-sass \
+  && npm install -g browserify bower grunt-cli serve
+
+RUN mkdir -p /app
+  
+RUN git clone $FEATURESRC /tmp/repo1 \
+  && git -C /tmp/repo1 pull \
+  && cp -r /tmp/repo1/* /app \
+  && rm -rf /tmp/repo1 
+  
+WORKDIR /app
+ADD . /app
+RUN npm install && npm update
+RUN bower install --allow-root
+RUN grunt build -url $BASEURL
+RUN adduser -S jekyll
+RUN chown -R jekyll:0 /app && chmod -R 770 /app
+RUN apk del --purge alpine-sdk python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev  
+
+USER jekyll
+RUN grunt sass:build && grunt copy
+WORKDIR /app/_site
+EXPOSE 3000
+CMD serve -C -D -J -S --compress -f ./favicon.ico .

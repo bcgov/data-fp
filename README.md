@@ -1,7 +1,6 @@
-[![Build Status](https://sandbox1.apis.gov.bc.ca/cis/job/data-fp-test/badge/icon)](https://sandbox1.apis.gov.bc.ca/cis/job/data-fp-test/)
-[![Stories in Ready](https://badge.waffle.io/bcgov/ckanext-bcgov.png?label=ready&title=Ready)](https://waffle.io/bcgov/ckanext-bcgov)
+[![Build Status](https://cis.data.gov.bc.ca/job/bcdc/job/data-fp/badge/icon)](https://cis.data.gov.bc.ca/job/bcdc/job/data-fp/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcgov/data-fp/master/LICENSE)
-<a rel="Inspiration" href="https://github.com/BCDevExchange/docs/blob/master/discussion/projectstates.md"><img alt="An idea being explored and shaped. Open for discussion, but may never go anywhere." style="border-width:0" src="http://bcdevexchange.org/badge/1.svg" title="An idea being explored and shaped. Open for discussion, but may never go anywhere." /></a>
+<a rel="Inspiration" href="https://github.com/BCDevExchange/docs/blob/master/discussion/projectstates.md"><img alt="An idea being explored and shaped. Open for discussion, but may never go anywhere." style="border-width:0" src="https://assets.bcdevexchange.org/images/badges/insipiration.svg" title="An idea being explored and shaped. Open for discussion, but may never go anywhere." /></a>
 
 # data-fp
 
@@ -13,7 +12,7 @@ This provides the frontpage of data.gov.bc.ca.
 3. [bower][2]
 4. [Grunt][3]
 
-There is also a [Vagrant box][4] available to make setup easier.
+There is also a [Vagrant box][4] and [Dockerfile][5] available to make setup easier.
 
 ## Installation
 1. Clone the repo and ```cd``` into the directory.
@@ -90,4 +89,5 @@ order: 100
 [1]: https://www.npmjs.com/
 [2]: http://bower.io/
 [3]: http://gruntjs.com/
-[4]: http://
+[4]: https://github.com/bcgov/bcdc-devops/tree/master/data-fp
+[5]: https://raw.githubusercontent.com/bcgov/data-fp/master/Dockerfile
