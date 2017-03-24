@@ -26,5 +26,5 @@ RUN apk del --purge alpine-sdk python ruby ruby-dev ruby-io-console ruby-irb rub
 USER jekyll
 RUN grunt sass:build && grunt copy
 WORKDIR /app/_site
-EXPOSE 3000
-CMD serve -C -D -J -S --compress -f ./favicon.ico .
+EXPOSE 5000
+CMD serve -C -S .
