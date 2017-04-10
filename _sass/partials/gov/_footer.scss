@@ -39,6 +39,20 @@
 
 #footerAdminLinks {
 	clear: both;
+
+	font-size: 13px;
+
+	ul.list-inline {
+		margin: 0;
+
+		li {
+			padding: 2px 10px;
+
+			& + li {
+				border-left: 1px solid #4b5e73;
+			}
+		}
+	}
 }
 
 #footerMediaLinks h2 {
@@ -109,6 +123,16 @@ img.back-to-top:hover {
 	#footer #footerContainer,
 	#footer #footerAdminLinks {
 		padding: 0 15px;
+	}
+
+	#footerAdminLinks {
+		ul.list-inline {
+			li {
+				& + li {
+					border-left: none;
+				}
+			}
+		}
 	}
 
 	#footer .connect {
