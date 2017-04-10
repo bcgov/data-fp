@@ -334,7 +334,7 @@
     width: 440px;
     padding: 0;
     right: 50px;
-	top: 64px;
+	top: $navbar-height;
 	z-index: 9999;
 }
 
@@ -705,7 +705,6 @@
 
 #header.collapsed-header #govNavMenu ul {
     background-color: #2b4777;
-    border-top: 1px solid #5f79a2;
 }
 
 #header.collapsed-header .govNav > ul {
@@ -743,7 +742,6 @@
 }
 
 #header.collapsed-header #govNavMenu ul li {
-    border-bottom: 1px solid #5f79a2;
     clear: right;
     position: relative;
     margin: 0;
@@ -780,7 +778,6 @@
     background-image: url('/assets/gov/images/menu-arrow-dn.png');
     background-position: center 15px;
     background-repeat: no-repeat;
-    border-left: 1px solid #5f79a2;
     cursor: pointer;
     display: inline-block;
     float: right;
@@ -905,7 +902,7 @@
 	#header.collapsed-header #header-main-row2 {
 		width: 100%;
 		right: 0;
-		top: 66px;
+		top: $navbar-height - 2;
 	}
 
 	#header.collapsed-header #header-main-row1 .header-search {
@@ -940,7 +937,6 @@
 
 	#govNavMenu {
         background-color: #036;
-        margin-top: 8px;
     }
 
     #header-main-row2.in #govNavMenu {
@@ -964,7 +960,6 @@
 	}
 	
         #govNavMenu  ul {
-            border-top: 1px solid #5f79a2;
             background-color: #2b4777;
         }
 
@@ -1005,7 +1000,6 @@
                     float: right;
                     height: 100%;
                     width: 50px;
-                    border-left: 1px solid #5f79a2;
                     /* border-bottom: 1px solid #5f79a2; */
                     cursor: pointer;
                    	position: absolute;
