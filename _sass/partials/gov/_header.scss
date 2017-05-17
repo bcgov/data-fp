@@ -145,10 +145,6 @@
 	}
 }
 
-#header-main-row2 {
-	padding-bottom: 10px;
-}
-
 .navigationRibbon {
 	-webkit-box-shadow: 0px 3px 3px 1px rgba(51, 51, 51, 0.5);
 	-moz-box-shadow: 0px 3px 3px 1px rgba(51, 51, 51, 0.5);
@@ -203,9 +199,13 @@
 
 /* Collapsed header styles */
 
-#header.collapsed-header #header-main {
+#header #header-main {
     border-bottom: 2px solid #fcba19;
     margin-bottom: 0;
+}
+
+#header.collapsed-header .level2Navigation {
+	display: none;
 }
 
 #header.collapsed-header #logo img {
@@ -312,10 +312,8 @@
 
 #header.collapsed-header #header-main-row1 .header-search .header-main-right .search, 
 #header.collapsed-header #header-main-row1 .header-search .header-main-right .search input {
-    bottom: 7px;
     height: 35px;
     margin: 0;
-    right: 20px;
 }
 
 #header.collapsed-header #header-main-row1 .header-search .header-main-right .search .search-trigger {
@@ -323,13 +321,16 @@
 	right: 10px;
 }
 
-#header.collapsed-header #header-main-row2 {
-    border: medium none;
-    max-height: none;
+#header #header-main-row2 {
+	visibility: hidden;
 }
 
 #header.collapsed-header #header-main-row2 {
-	position: absolute;
+	visibility: visible;
+    border: medium none;
+    max-height: none;
+    padding-bottom: 10px;
+    position: absolute;
 	background-color: #036;
     width: 440px;
     padding: 0;
@@ -349,8 +350,8 @@
 
 #header.collapsed-header .navbar-fixed-top .navbar-collapse {     
     height: 10px;
-    margin-left: -15px;
-    margin-right: -15px;    
+    /*margin-left: -15px;
+    margin-right: -15px;*/
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -844,8 +845,17 @@
 	overflow: visible;
 }
 
-#header .header-search {
-	z-index: 9999;
+#header {
+	.header-search {
+		//display: none;
+	}
+
+	&.collapsed-header {
+		.header-search {
+			z-index: 9999;
+			//display: block;
+		}
+	}
 }
 
 #header .search form#suggestion_form {
@@ -854,8 +864,8 @@
 
 #header .navbar-brand {
 	position: relative;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 #header .navbar-brand .logo {

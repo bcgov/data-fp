@@ -116,9 +116,6 @@ img.back-to-top:hover {
 }
 
 @include breakpoint(xs) {
-	#footer {
-		margin: 0 -20px;
-	}
 
 	#footer #footerContainer,
 	#footer #footerAdminLinks {
