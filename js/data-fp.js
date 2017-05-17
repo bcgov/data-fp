@@ -60,6 +60,25 @@
 				}
 			}
 		});
+
+		var navHeight = $('#header-main-row1').height();
+		var $header = $('#header');
+		var $headerSearch = $('.header-search');
+		$(window).scroll(function(e) {
+			var scroll = $(window).scrollTop();
+
+			// Scrolled past nav
+			if(scroll >= navHeight) {
+				$header.addClass('collapsed-header');
+				if($headerSearch.attr('aria-expanded') == "true") {
+					$headerSearch.addClass('in');
+				}
+			}
+			else {
+				$header.removeClass('collapsed-header');
+				$headerSearch.removeClass('in');
+			}
+		});
 	});
 
 	function updateCKANData(feedData) {
