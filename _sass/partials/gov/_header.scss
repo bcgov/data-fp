@@ -864,7 +864,7 @@
 
 #header .navbar-brand {
 	position: relative;
-	padding-top: 0;
+	padding-top: 13px;
 	padding-bottom: 0;
 }
 
@@ -881,6 +881,7 @@
 
 #header .navbar-brand .logo img {
 	margin-right: 15px;
+	vertical-align: text-top;
 }
 
 .background {
@@ -907,6 +908,14 @@
 	#header-main,
 	#header-main #header-main-row1 {
 		height: 68px;
+	}
+
+	#header .navbar-brand {
+		padding-top: 0;
+	}
+
+	#header .navbar-brand .logo img {
+		vertical-align: middle;
 	}
 
 	#header.collapsed-header #header-main-row2 {
@@ -1060,4 +1069,14 @@
                 #govMainMenu  ul li ul li ul li a {
                     padding-left: 64px;
                 }
+}
+
+@include breakpoint(350px) {
+	#header {
+		.navbar-brand {
+			.navbar-brand-text {
+				display: none;
+			}
+		}
+	}
 }
