@@ -60,6 +60,91 @@
 				}
 			}
 		});
+
+		var navHeight = $('#header-main-row1').height();
+		var $header = $('#header');
+		var $headerSearch = $('.header-search');
+		$(window).scroll(function(e) {
+			var scroll = $(window).scrollTop();
+
+			// Scrolled past nav
+			if(scroll >= navHeight) {
+				$header.addClass('collapsed-header');
+				if($headerSearch.attr('aria-expanded') == "true") {
+					$headerSearch.addClass('in');
+				}
+			}
+			else {
+				if($( window ).width() >= 768) {
+					$header.removeClass('collapsed-header');
+				}
+				$headerSearch.removeClass('in');
+			}
+		});
+
+		$(window).resize(function() {
+			if($( window ).width() < 768) {
+				$header.addClass('collapsed-header');
+			}
+			else {
+				var scroll = $(window).scrollTop();
+				if(scroll < navHeight) {
+					$header.removeClass('collapsed-header');
+				}
+			}
+		});
+		$(window).trigger('resize');
+
+		// -----------------------
+		// Typeahead configuration
+		// -----------------------
+        var engine = new Bloodhound({
+          name: 'package_search',
+          local: [],
+          remote: {
+            url: 'https://catalogue.data.gov.bc.ca/api/3/action/package_autocomplete?q=',
+            prepare: function (query, settings) {
+            settings.url += encodeURIComponent(query);
+	            settings.type = 'POST';
+	            settings.contentType = "application/json; charset=UTF-8";
+	            return settings;
+	       },
+            filter: function(response) {
+                return response.result;
+            }
+          },
+          datumTokenizer: function(d) {
+            return Bloodhound.tokenizers.whitespace(d.title);
+          },
+          queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
+
+
+
+        // kicks off the loading/processing of `local` and `prefetch`
+        engine.initialize();
+
+        $('.search:not(.gov)').typeahead({
+          hint: true,
+          highlight: true,
+          minLength: 4
+        },
+        {
+          name: 'datasets',
+          displayKey: 'title',
+          // `ttAdapter` wraps the suggestion engine in an adapter that
+          // is compatible with the typeahead jQuery plugin
+          source: engine.ttAdapter()
+        });
+
+        $(document).on('typeahead:selected', function(e, suggestion, dataset) {
+	      var name = suggestion.name;
+	      window.location.href = 'https://catalogue.data.gov.bc.ca/dataset/' + name;
+	    });
+
+	    // -----------------------
+		// End Typeahead configuration
+		// -----------------------
 	});
 
 	function updateCKANData(feedData) {

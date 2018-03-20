@@ -72,23 +72,23 @@
 }
 
 #form-dataset-search input {
-	height: 50px;
-	border: 2px solid #26639c;
-	border-radius: 5px;
-	font-size: 1.5em;
+	height: 70px;
+	border: none;
+	border-radius: 0;
+	font-size: 1.125em;
 	padding-right: 50px;
 }
 
 #form-dataset-search .search-icon {
 	position: absolute;
-	right: 2px;
-	top: 1px;
+	right: 0;
+	top: 0;
 
 	background-color: #26639c;
 	background-image: url('/assets/gov/images/inlinesearch-button-on.png');
 	background-repeat: no-repeat;
 	background-position: center;
-	height: 48px;
+	height: 70px;
 	width: 40px;
 
 	padding: 0;

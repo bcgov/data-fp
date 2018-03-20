@@ -1,9 +1,15 @@
 .page-content {
-	padding-top: $navbar-height - 15;
+	padding-top: $navbar-height + 26;
 }
 
-@include breakpoint(xs) {
+@media (min-width: 768px) and (max-width: 991px) {
 	.page-content {
-		padding-top: 68px;
+		padding-top: $navbar-height + 46;
+	}
+}
+
+@media (max-width: 767px) {
+	.page-content {
+		padding-top: $navbar-height;
 	}
 }

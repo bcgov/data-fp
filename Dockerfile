@@ -5,7 +5,7 @@ RUN apk update \
   && apk add alpine-sdk nodejs python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \
   && gem install --no-ri --no-rdoc ffi jekyll jekyll-sass \
-  && npm install -g browserify bower grunt-cli serve
+  && npm install -g browserify bower grunt-cli serve@1.4.0
 
 RUN mkdir -p /app
   
@@ -27,4 +27,4 @@ USER jekyll
 RUN grunt sass:build && grunt copy
 WORKDIR /app/_site
 EXPOSE 3000
-CMD serve -C -D -J -S --compress -f ./favicon.ico .
+CMD serve -C -S -D -J --compress -f ./favicon.ico .
