@@ -2,6 +2,12 @@
 	margin-top: 30px;
 }
 
+@media (max-width: 767px) {
+	#homeTemplate {
+		margin-top: 15px;
+	}
+}
+
 #sutd {
 	ul {
 		margin-bottom: 0;

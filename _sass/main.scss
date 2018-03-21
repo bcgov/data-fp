@@ -3,8 +3,8 @@
 @import "modules/fonts";
 @import "modules/mixins";
 
-@import "bootstrap_overrides";
-@import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "_bootstrap_overrides";
 
 $navbar-height: 70px;
 $navbar-height-padding: $grid-gutter-width * 2;
