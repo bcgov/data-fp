@@ -21,25 +21,11 @@ module.exports = function (grunt) {
                 command: function(host, port) {
                     return 'jekyll serve --host=' + host + ' --port=' + port;
                 }
-            }
-        },
-
-        sass: {
-            options: {
-                sourceMap: true,
-                relativeAssets: false,
-                outputStyle: 'expanded',
-                sassDir: '_sass',
-                cssDir: '_site/css'
             },
-            build: {
-                files: [{
-                    expand: true,
-                    cwd: '_sass/',
-                    src: ['**/*.{scss,sass}'],
-                    dest: '_site/css',
-                    ext: '.css'
-                }]
+            nodeSass: {
+                command: function() {
+                    return 'node-sass -q --source-map true --source-map-contents true --output /app/_site/css/ /app/_sass/main.scss'
+                }
             }
         },
 
@@ -56,40 +42,31 @@ module.exports = function (grunt) {
 
         watch: {
             sass: {
-                files: ['_sass/**/*.{scss,sass}'],
+                files: ['_sass/**/*.scss'],
                 tasks: ['sass']
             }
         },
 
         copy: {
-            bootstrap: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'bower_components/bootstrap-sass/assets/javascripts/',
-                        src: ['bootstrap.min.js'],
-                        dest: '_site/js'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'bower_components/bootstrap-sass/assets/fonts',
-                        src: ['bootstrap/**'],
-                        dest: '_site/fonts'
-                    }
-                ]
-            },
-            jquery: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'bower_components/jquery/dist/',
-                        src: ['jquery.min.js'],
-                        dest: '_site/js'
-                    }
-                ]
+            main: {
+                files: [{
+                    expand: true,
+                    cwd: 'node_modules/bootstrap-sass/assets/javascripts/',
+                    src: ['bootstrap.min.js', ],
+                    dest: '_site/js/'
+                }, {
+                    expand: true,
+                    cwd: 'node_modules/bootstrap-sass/assets/fonts/',
+                    src: ['bootstrap/**'],
+                    dest: '_site/fonts/'
+                }, {
+                    expand: true,
+                    cwd: 'node_modules/jquery/dist/',
+                    src: ['jquery.min.js'],
+                    dest: '_site/js/'
+                }]
             }
-        },
-
+        }
     });
 
     grunt.registerTask('dev', 'concurrent:serve');
@@ -111,9 +88,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'makeconfig',
-        'sass',
+        'shell:jekyllBuild',
         'copy',
-        'shell:jekyllBuild'
+        'shell:nodeSass',
     ]);
 
     grunt.registerTask('makeconfig', 'Creates a _config.yml file from the config template', function() {
@@ -121,6 +98,7 @@ module.exports = function (grunt) {
         var config = YAML.load('_config.template.yml');
 
         var url = grunt.option('url');
+
         if(url) {
             config.url = url;
         }
