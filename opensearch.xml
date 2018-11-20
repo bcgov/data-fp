@@ -6,6 +6,6 @@ The BC Data catalogue helps users to find, understand and explore data. The cata
 DataBC manages the BC Data Catalogue software and infrastructure, and delivers user training and authorization management.
 </Description>
 <InputEncoding>UTF-8</InputEncoding>
-<Image width="16" height="16" type="image/x-icon">your site favicon</Image>
+<Image width="16" height="16" type="image/x-icon">https://data.gov.bc.ca/favicon.ico</Image>
 <Url type="text/html" method="get" template="https://catalogue.data.gov.bc.ca/dataset?q={searchTerms}"/>
 </OpenSearchDescription>
