@@ -1,0 +1,11 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+<ShortName>DataBC</ShortName>
+<Description>
+The BC Data catalogue helps users to find, understand and explore data. The catalogue also provides contact information so that data users can contact Data Custodians for additional information if required.
+
+DataBC manages the BC Data Catalogue software and infrastructure, and delivers user training and authorization management.
+</Description>
+<InputEncoding>UTF-8</InputEncoding>
+<Image width="16" height="16" type="image/x-icon">your site favicon</Image>
+<Url type="text/html" method="get" template="https://catalogue.data.gov.bc.ca/dataset?q={searchTerms}"/>
+</OpenSearchDescription>
