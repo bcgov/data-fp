@@ -17,13 +17,11 @@ RUN git clone $FEATURESRC /tmp/repo1 \
 WORKDIR /app
 ADD . /app
 
-RUN npm install && npm update
+RUN npm install && npm update && grunt build
 
-RUN grunt build -url $BASEURL
-
-RUN adduser -S jekyll
-RUN chown -R jekyll:0 /app && chmod -R 770 /app
-RUN apk del --purge alpine-sdk python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev  
+RUN adduser -S jekyll \
+  && chown -R jekyll:0 /app && chmod -R 770 /app \
+  && apk del --purge alpine-sdk python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev  
 
 USER jekyll
 
