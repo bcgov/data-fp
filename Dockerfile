@@ -7,9 +7,8 @@ RUN apk update \
   && gem install --no-ri --no-rdoc ffi jekyll \
   && npm install -g node-sass browserify grunt-cli serve@1.4.0
 
-RUN mkdir -p /app
-  
-RUN git clone $FEATURESRC /tmp/repo1 \
+RUN mkdir -p /app \
+  && git clone $FEATURESRC /tmp/repo1 \
   && git -C /tmp/repo1 pull \
   && cp -r /tmp/repo1/* /app \
   && rm -rf /tmp/repo1 
