@@ -17,7 +17,7 @@ RUN git clone $FEATURESRC /tmp/repo1 \
 WORKDIR /app
 ADD . /app
 
-RUN npm install && npm update && grunt build
+RUN npm install && npm update && grunt build -url ${BASEURL} --force
 
 RUN adduser -S jekyll \
   && chown -R jekyll:0 /app && chmod -R 770 /app \
