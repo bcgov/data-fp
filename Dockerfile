@@ -7,6 +7,7 @@ RUN apk update \
   && apk add alpine-sdk python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \
   && gem install --no-ri --no-rdoc ffi jekyll \
+  && npm i -g grunt-cli \
   && mkdir -p /app \
   && git clone $FEATURESRC /tmp/repo1 \
   && git -C /tmp/repo1 pull \
