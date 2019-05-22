@@ -18,6 +18,6 @@ RUN apk update \
 RUN npm i && grunt build -url ${BASEURL} --force
 
 FROM abiosoft/caddy:no-stats
-COPY --from=build /app/_site /srv
+COPY --from=build /app/_site/ /srv
 
 EXPOSE 2015
