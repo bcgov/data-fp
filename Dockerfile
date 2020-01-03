@@ -4,9 +4,10 @@ MAINTAINER leo.lou@gov.bc.ca
 ADD . /app
 WORKDIR /app
 RUN apk update \
-  && apk add alpine-sdk nodejs nodejs-npm python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake libffi libffi-dev \
+  && apk add alpine-sdk nodejs nodejs-npm python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake ruby-rdoc libffi libffi-dev \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \
-  && gem install --no-ri --no-rdoc ffi jekyll \
+  && gem update --system \
+  && gem install ffi jekyll \
   && npm install -g node-sass browserify grunt-cli serve@1.4.0 \
   && mkdir -p /app \
   && git clone $FEATURESRC /tmp/repo1 \
