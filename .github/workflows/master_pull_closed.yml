@@ -14,4 +14,4 @@ jobs:
         ref: master
     - name: Send Payload
       run: |
-        curl -X POST ${{ secrets.OCP_URL }}/apis/build.openshift.io/v1/namespaces/dbc-bcdc-dev/buildconfigs/datafp-dev/webhooks/${{ secrets.OCP_WEBHOOK_DEV }}/generic
+        curl -X POST ${{ secrets.OCP_URL }}/apis/build.openshift.io/v1/namespaces/dbc-bcdc-prod/buildconfigs/datafp-dev/webhooks/${{ secrets.OCP_WEBHOOK_DEV }}/generic
