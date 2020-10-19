@@ -24,7 +24,7 @@ parameters:
     description: "url of git repo for data-fp"
     value: https://github.com/bcgov/data-fp
   - name: "MAINSRC_BRANCH"
-    description: "data-fp brnach to deploy"
+    description: "data-fp branch to deploy"
     value: dev
   - name: "DEPLOY_NAMESPACE"
     description: "namespace to be deployed"
