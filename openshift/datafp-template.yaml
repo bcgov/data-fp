@@ -17,15 +17,21 @@ parameters:
   - name: "FEATURESRC"
     description: "url of git repo for data-fp-features"
     value: https://github.com/bcgov/data-fp-features.git
+  - name: "FEATURESRC_BRANCH"
+    description: "data-fp-features branch to deploy"
+    value: dev
   - name: "MAINSRC"
     description: "url of git repo for data-fp"
     value: https://github.com/bcgov/data-fp
+  - name: "MAINSRC_BRANCH"
+    description: "data-fp brnach to deploy"
+    value: dev
   - name: "DEPLOY_NAMESPACE"
     description: "namespace to be deployed"
     value: namespace
 
 objects:
-    
+
   - kind: BuildConfig
     apiVersion: v1
     metadata:
@@ -48,6 +54,7 @@ objects:
       source:
           git:
             uri: ${MAINSRC}
+            branch: ${MAINSRC_BRANCH}
           type: Git
       strategy:
         dockerStrategy:
@@ -56,6 +63,8 @@ objects:
             value: https://${BASEURL}
           - name: FEATURESRC
             value: ${FEATURESRC}
+          - name: FEATURESRC_BRANCH
+            value: ${FEATURESRC_BRANCH}
           from:
             kind: ImageStreamTag
             name: alpine:3.6
