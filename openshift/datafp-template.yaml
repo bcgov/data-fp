@@ -29,6 +29,11 @@ parameters:
   - name: "DEPLOY_NAMESPACE"
     description: "namespace to be deployed"
     value: namespace
+  - name: "WEBHOOKSECRETKEY"
+    description: "WebHookSecretKey to be used for github webhook"
+    value: secret
+
+
 
 objects:
 
@@ -54,7 +59,7 @@ objects:
       source:
           git:
             uri: ${MAINSRC}
-            branch: ${MAINSRC_BRANCH}
+            ref: ${MAINSRC_BRANCH}
           type: Git
       strategy:
         dockerStrategy:
@@ -75,8 +80,11 @@ objects:
       - generic:
           secret: eKDdyUR6rQuRIrmpolCQ
         type: Generic
+      - github:
+          secret: ${WEBHOOKSECRETKEY}
+        type: GitHub
       - type: ConfigChange
-  
+
 
   - kind: DeploymentConfig
     apiVersion: v1
@@ -178,7 +186,7 @@ objects:
         deploymentconfig: ${NAME}-${ENV}
       sessionAffinity: None
       type: ClusterIP
-    
+
   - kind: Route
     apiVersion: v1
     metadata:
@@ -197,7 +205,7 @@ objects:
         name: ${NAME}-${ENV}-svc
         weight: 100
       wildcardPolicy: None
-    
+
   - kind: ImageStream
     apiVersion: v1
     metadata:
@@ -213,3 +221,13 @@ objects:
       tags:
         - name: latest
 
+  - kind: Secret
+    apiVersion: v1
+    data:
+      WebHookSecretKey: ${WEBHOOKSECRETKEY}
+    metadata:
+      name: ${NAME}-${ENV}-webhook-secret
+      namespace: ${DEPLOY_NAMESPACE}
+      labels:
+        app: ${NAME}-${ENV}
+    type: Opaque
