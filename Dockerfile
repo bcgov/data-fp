@@ -8,7 +8,7 @@ RUN apk update \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \
   && gem update --system \
   && gem install ffi jekyll \
-  && npm config set unsafe-perm true
+  && npm config set unsafe-perm true \
   && npm install -g node-sass browserify grunt-cli serve@1.4.0 \
   && mkdir -p /app \
   && git clone --branch $FEATURESRC_BRANCH $FEATURESRC /tmp/repo1 \
