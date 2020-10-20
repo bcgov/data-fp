@@ -72,7 +72,7 @@ objects:
             value: ${FEATURESRC_BRANCH}
           from:
             kind: ImageStreamTag
-            name: alpine:3.6
+            name: alpine:latest
             namespace: openshift
         type: Docker
       successfulBuildsHistoryLimit: 5
@@ -153,7 +153,8 @@ objects:
     test: false
     triggers:
     - type: ConfigChange
-    - imageChangeParams:
+    - type: ImageChange
+      imageChangeParams:
         automatic: true
         containerNames:
         - dist
@@ -161,7 +162,7 @@ objects:
           kind: ImageStreamTag
           name: ${NAME}-${ENV}:latest
           namespace: ${DEPLOY_NAMESPACE}
-      type: ImageChange
+
 
 
   - kind: "Service"
