@@ -72,7 +72,7 @@ objects:
             value: ${FEATURESRC_BRANCH}
           from:
             kind: ImageStreamTag
-            name: alpine:latest
+            name: alpine:3.6
             namespace: openshift
         type: Docker
       successfulBuildsHistoryLimit: 5
