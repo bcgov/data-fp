@@ -78,11 +78,8 @@ objects:
       successfulBuildsHistoryLimit: 5
       triggers:
       - generic:
-          secret: eKDdyUR6rQuRIrmpolCQ
-        type: Generic
-      - github:
           secret: ${WEBHOOKSECRETKEY}
-        type: GitHub
+        type: Generic
       - type: ConfigChange
 
 
