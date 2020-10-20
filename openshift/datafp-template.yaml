@@ -150,18 +150,18 @@ objects:
           volumes:
           - emptyDir: {}
             name: app-runtime
-    test: false
-    triggers:
-    - type: ConfigChange
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-        - dist
-        from:
-          kind: ImageStreamTag
-          name: ${NAME}-${ENV}:latest
-          namespace: ${DEPLOY_NAMESPACE}
+      test: false
+      triggers:
+      - type: ConfigChange
+      - imageChangeParams:
+          automatic: true
+          containerNames:
+            - dist
+          from:
+            kind: ImageStreamTag
+            name: ${NAME}-${ENV}:latest
+            namespace: ${DEPLOY_NAMESPACE}
+        type: ImageChange
 
 
 
