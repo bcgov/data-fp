@@ -1,4 +1,4 @@
-name: dev_pull_closed
+name: master_pull_closed
 
 on:
   push:
