@@ -1,0 +1,231 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: ${NAME}-${ENV}-template
+labels:
+  app: ${NAME}-${ENV}
+parameters:
+  - name: NAME
+    description: "base name for the all objects"
+    value: datafp
+  - name: ENV
+    description: "this is dev|test|prd"
+    value: dev
+  - name: "BASEURL"
+    description: "base url of route example: https://data.gov.bc.ca"
+    value: https://dev.data.gov.bc.ca
+  - name: "FEATURESRC"
+    description: "url of git repo for data-fp-features"
+    value: https://github.com/bcgov/data-fp-features.git
+  - name: "FEATURESRC_BRANCH"
+    description: "data-fp-features branch to deploy"
+    value: dev
+  - name: "MAINSRC"
+    description: "url of git repo for data-fp"
+    value: https://github.com/bcgov/data-fp
+  - name: "MAINSRC_BRANCH"
+    description: "data-fp branch to deploy"
+    value: dev
+  - name: "DEPLOY_NAMESPACE"
+    description: "namespace to be deployed"
+    value: namespace
+  - name: "WEBHOOKSECRETKEY"
+    description: "WebHookSecretKey to be used for github webhook"
+    value: secret
+
+
+
+objects:
+
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewBuild
+      labels:
+        app: ${NAME}-${ENV}
+      name: ${NAME}-${ENV}
+    namespace: ${DEPLOY_NAMESPACE}
+    spec:
+      failedBuildsHistoryLimit: 5
+      nodeSelector: null
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${NAME}-${ENV}:latest
+      postCommit: {}
+      resources: {}
+      runPolicy: Serial
+      source:
+          git:
+            uri: ${MAINSRC}
+            ref: ${MAINSRC_BRANCH}
+          type: Git
+      strategy:
+        dockerStrategy:
+          env:
+          - name: BASEURL
+            value: https://${BASEURL}
+          - name: FEATURESRC
+            value: ${FEATURESRC}
+          - name: FEATURESRC_BRANCH
+            value: ${FEATURESRC_BRANCH}
+          from:
+            kind: ImageStreamTag
+            name: alpine:3.6
+            namespace: openshift
+        type: Docker
+      successfulBuildsHistoryLimit: 5
+      triggers:
+      - generic:
+          secret: ${WEBHOOKSECRETKEY}
+        type: Generic
+      - type: ConfigChange
+
+
+  - kind: DeploymentConfig
+    apiVersion: v1
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      labels:
+        app: ${NAME}-${ENV}
+      name: ${NAME}-${ENV}
+    namespace: ${DEPLOY_NAMESPACE}
+    spec:
+      replicas: 2
+      selector:
+        app: ${NAME}-${ENV}
+        deploymentconfig: ${NAME}-${ENV}
+      strategy:
+        activeDeadlineSeconds: 21600
+        resources: {}
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          annotations:
+            openshift.io/generated-by: OpenShiftWebConsole
+          labels:
+            app: ${NAME}-${ENV}
+            deploymentconfig: ${NAME}-${ENV}
+        spec:
+          containers:
+            - image: abiosoft/caddy:no-stats
+              imagePullPolicy: IfNotPresent
+              name: ${NAME}-${ENV}-app
+              ports:
+              - containerPort: 2015
+                protocol: TCP
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              volumeMounts:
+              - mountPath: /srv
+                name: app-runtime
+          dnsPolicy: ClusterFirst
+          initContainers:
+            - command:
+              - /bin/sh
+              - -c
+              - cp -r /app/_site/* /dist
+              image: docker-registry.default.svc:5000/${DEPLOY_NAMESPACE}/${NAME}-${ENV}:latest
+              imagePullPolicy: Always
+              name: dist
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              volumeMounts:
+              - mountPath: /dist
+                name: app-runtime
+          restartPolicy: Always
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+          volumes:
+          - emptyDir: {}
+            name: app-runtime
+      test: false
+      triggers:
+      - type: ConfigChange
+      - imageChangeParams:
+          automatic: true
+          containerNames:
+            - dist
+          from:
+            kind: ImageStreamTag
+            name: ${NAME}-${ENV}:latest
+            namespace: ${DEPLOY_NAMESPACE}
+        type: ImageChange
+
+
+
+  - kind: "Service"
+    apiVersion: v1
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      labels:
+        app: ${NAME}-${ENV}-app
+      name: ${NAME}-${ENV}-svc
+      namespace: ${DEPLOY_NAMESPACE}
+    spec:
+      ports:
+      - name: 2015-tcp
+        port: 2015
+        protocol: TCP
+        targetPort: 2015
+      selector:
+        deploymentconfig: ${NAME}-${ENV}
+      sessionAffinity: None
+      type: ClusterIP
+
+  - kind: Route
+    apiVersion: v1
+    metadata:
+      labels:
+        app: ${NAME}-${ENV}-app
+      name: ${NAME}-${ENV}-rt
+      namespace: ${DEPLOY_NAMESPACE}
+    spec:
+      host: ${BASEURL}
+      port:
+        targetPort: 2015-tcp
+      tls:
+        termination: edge
+      to:
+        kind: Service
+        name: ${NAME}-${ENV}-svc
+        weight: 100
+      wildcardPolicy: None
+
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewBuild
+      labels:
+        app: ${NAME}-${ENV}
+      name: ${NAME}-${ENV}
+      namespace: ${DEPLOY_NAMESPACE}
+    spec:
+      lookupPolicy:
+        local: false
+      tags:
+        - name: latest
+
+  - kind: Secret
+    apiVersion: v1
+    data:
+      WebHookSecretKey: ${WEBHOOKSECRETKEY}
+    metadata:
+      name: ${NAME}-${ENV}-webhook-secret
+      namespace: ${DEPLOY_NAMESPACE}
+      labels:
+        app: ${NAME}-${ENV}
+    type: Opaque

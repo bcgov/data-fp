@@ -1,0 +1,17 @@
+name: dev_pull_closed
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: master
+    - name: Send Payload
+      run: |
+        curl -X POST ${{ secrets.OCP_URL }}/apis/build.openshift.io/v1/namespaces/dbc-bcdc-prod/buildconfigs/datafp-dev/webhooks/${{ secrets.OCP_WEBHOOK_DEV }}/generic
