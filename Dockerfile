@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.6
 MAINTAINER leo.lou@gov.bc.ca
 
 ADD . /app
