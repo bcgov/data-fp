@@ -1,9 +1,6 @@
 FROM alpine:3.8
 MAINTAINER leo.lou@gov.bc.ca
 
-ARG FEATURESRC
-ARG FEATURESRC_BRANCH
-
 ADD . /app
 WORKDIR /app
 RUN apk update \
