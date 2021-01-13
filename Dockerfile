@@ -1,5 +1,8 @@
-FROM alpine:3.6
+FROM alpine:3.8
 MAINTAINER leo.lou@gov.bc.ca
+
+ARG FEATURESRC
+ARG FEATURESRC_BRANCH
 
 ADD . /app
 WORKDIR /app
@@ -7,9 +10,9 @@ RUN apk update \
   && apk add alpine-sdk nodejs nodejs-npm python ruby ruby-dev ruby-io-console ruby-irb ruby-json ruby-rake ruby-rdoc libffi libffi-dev \
   && git config --global url.https://github.com/.insteadOf git://github.com/ \
   && gem update --system \
-  && gem install ffi jekyll \
+  && gem install ffi jekyll bigdecimal \
   && npm config set unsafe-perm true \
-  && npm install -g node-sass browserify grunt-cli serve@1.4.0 \
+  && npm install -g node-sass@4.12.0 browserify grunt-cli serve@1.4.0 \
   && mkdir -p /app \
   && git clone --branch $FEATURESRC_BRANCH $FEATURESRC /tmp/repo1 \
   && git -C /tmp/repo1 pull \
