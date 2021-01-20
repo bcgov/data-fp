@@ -1,6 +1,6 @@
 (function($) {
 	$(document).ready(function() {
-		var feedsUrl = 'https://dbcfeeds.api.gov.bc.ca/';
+		var feedsUrl = window.DATA_FP_API;
 
 		var feed_data = {
 			dataset_count: 0,
