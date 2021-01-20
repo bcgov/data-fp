@@ -1,9 +1,14 @@
-apiVersion: v1
+apiVersion: template.openshift.io/v1
 kind: Template
-metadata:
-  name: ${NAME}-${ENV}-template
 labels:
-  app: ${NAME}-${ENV}
+  template: data-fp-template
+metadata:
+  annotations:
+    openshift.io/display-name: Data-fp Template
+    description: |-
+      This is a template for Data-fp deployment to OCP 4
+  name: data-fp-template
+
 parameters:
   - name: NAME
     description: "base name for the all objects"
@@ -13,7 +18,7 @@ parameters:
     value: dev
   - name: "BASEURL"
     description: "base url of route example: https://data.gov.bc.ca"
-    value: https://dev.data.gov.bc.ca
+    value: data-fp-dev-<licence_plate>.apps.silver.devops.gov.bc.ca
   - name: "FEATURESRC"
     description: "url of git repo for data-fp-features"
     value: https://github.com/bcgov/data-fp-features.git
@@ -29,16 +34,17 @@ parameters:
   - name: "DEPLOY_NAMESPACE"
     description: "namespace to be deployed"
     value: namespace
+  - name: "DATA_FP_API_URL"
+    description: "URL to data-fp-api"
+    value: data-fp-api-url
   - name: "WEBHOOKSECRETKEY"
     description: "WebHookSecretKey to be used for github webhook"
     value: secret
 
-
-
 objects:
 
   - kind: BuildConfig
-    apiVersion: v1
+    apiVersion: build.openshift.io/v1
     metadata:
       annotations:
         openshift.io/generated-by: OpenShiftNewBuild
@@ -71,9 +77,8 @@ objects:
           - name: FEATURESRC_BRANCH
             value: ${FEATURESRC_BRANCH}
           from:
-            kind: ImageStreamTag
-            name: alpine:3.6
-            namespace: openshift
+            kind: DockerImage
+            name: docker.io/alpine:3.6
         type: Docker
       successfulBuildsHistoryLimit: 5
       triggers:
@@ -82,16 +87,26 @@ objects:
         type: Generic
       - type: ConfigChange
 
+  - kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      labels:
+        app: ${NAME}-${ENV}
+      name: data-fp-env-file
+      namespace: ${DEPLOY_NAMESPACE}
+    data:
+      env-file.js: >-
+        DATA_FP_API="${DATA_FP_API_URL}"
 
   - kind: DeploymentConfig
-    apiVersion: v1
+    apiVersion: apps.openshift.io/v1
     metadata:
       annotations:
         openshift.io/generated-by: OpenShiftWebConsole
       labels:
         app: ${NAME}-${ENV}
       name: ${NAME}-${ENV}
-    namespace: ${DEPLOY_NAMESPACE}
+      namespace: ${DEPLOY_NAMESPACE}
     spec:
       replicas: 2
       selector:
@@ -120,36 +135,43 @@ objects:
               imagePullPolicy: IfNotPresent
               name: ${NAME}-${ENV}-app
               ports:
-              - containerPort: 2015
-                protocol: TCP
+                - containerPort: 2015
+                  protocol: TCP
               resources: {}
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
               volumeMounts:
-              - mountPath: /srv
-                name: app-runtime
+                - name: app-runtime
+                  mountPath: /srv
+                - name: data-fp-env
+                  mountPath: /srv/js/env-file.js
+                  subPath: env-file.js
           dnsPolicy: ClusterFirst
           initContainers:
-            - command:
-              - /bin/sh
-              - -c
-              - cp -r /app/_site/* /dist
+            - name: dist
               image: docker-registry.default.svc:5000/${DEPLOY_NAMESPACE}/${NAME}-${ENV}:latest
-              imagePullPolicy: Always
-              name: dist
+              command:
+                - /bin/sh
+                - -c
+                - cp -r /app/_site/* /dist
               resources: {}
-              terminationMessagePath: /dev/termination-log
-              terminationMessagePolicy: File
               volumeMounts:
               - mountPath: /dist
                 name: app-runtime
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              imagePullPolicy: Always
           restartPolicy: Always
           schedulerName: default-scheduler
           securityContext: {}
           terminationGracePeriodSeconds: 30
           volumes:
-          - emptyDir: {}
-            name: app-runtime
+            - name: app-runtime
+              emptyDir: {}
+            - name: data-fp-env
+              configMap:
+                name: data-fp-env-file
+                defaultMode: 420
       test: false
       triggers:
       - type: ConfigChange
@@ -163,9 +185,7 @@ objects:
             namespace: ${DEPLOY_NAMESPACE}
         type: ImageChange
 
-
-
-  - kind: "Service"
+  - kind: Service
     apiVersion: v1
     metadata:
       annotations:
@@ -186,26 +206,28 @@ objects:
       type: ClusterIP
 
   - kind: Route
-    apiVersion: v1
+    apiVersion: route.openshift.io/v1
     metadata:
-      labels:
-        app: ${NAME}-${ENV}-app
       name: ${NAME}-${ENV}-rt
       namespace: ${DEPLOY_NAMESPACE}
+      labels:
+        app: ${NAME}-${ENV}-app
+        template: data-fp-template
     spec:
       host: ${BASEURL}
-      port:
-        targetPort: 2015-tcp
-      tls:
-        termination: edge
       to:
         kind: Service
         name: ${NAME}-${ENV}-svc
         weight: 100
+      port:
+        targetPort: 2015-tcp
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
       wildcardPolicy: None
 
   - kind: ImageStream
-    apiVersion: v1
+    apiVersion: image.openshift.io/v1
     metadata:
       annotations:
         openshift.io/generated-by: OpenShiftNewBuild
