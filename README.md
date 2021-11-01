@@ -1,3 +1,4 @@
+[![Lifecycle:Retired](https://img.shields.io/badge/Lifecycle-Retired-d45500)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
 [![Build Status](https://cis.data.gov.bc.ca/job/bcdc/job/data-fp/badge/icon)](https://cis.data.gov.bc.ca/job/bcdc/job/data-fp/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bcgov/data-fp/master/LICENSE)
 [![Delivery](https://assets.bcdevexchange.org/images/badges/delivery.svg)](https://github.com/BCDevExchange/docs/blob/master/discussion/projectstates.md)
